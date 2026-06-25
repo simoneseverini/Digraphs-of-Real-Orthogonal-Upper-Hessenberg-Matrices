@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Setup and definitions</title>
+<link rel="next" href="sect0002.html" title="Main theorems" />
+<link rel="prev" href="index.html" title="Digraphs of real orthogonal upper Hessenberg matrices" />
+<link rel="up" href="index.html" title="Digraphs of real orthogonal upper Hessenberg matrices" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Digraphs of real orthogonal upper Hessenberg matrices</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=" active current">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Setup and definitions</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Main theorems</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Enumeration consequences</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000002">1 Setup and definitions</h1>
+<p>We work with \(n \times n\) real matrices (\(n \ge 2\)), indexed by \([n] = \{ 1, 2, \dots , n\} \) throughout. The five definitions below set up both the matrix-side object of study (orthogonal upper Hessenberg matrices), its combinatorial shadow (the support digraph), and the two parameterisations (Givens factorisation, active set) that allow the matrix and combinatorial sides to be compared. </p>
+<div class="definition_thmwrapper theorem-style-definition" id="def:OH">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">1</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0001.html#def:OH">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.OrthogonalHessenberg" class="lean_decl">HessenbergDigraphs.OrthogonalHessenberg</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>  A matrix \(Q \in \mathbb {R}^{n\times n}\) is <em>upper Hessenberg</em> if \(Q_{ij} = 0\) whenever \(j+1 {\lt} i\), and <em>orthogonal</em> if \(Q^\top Q = I\). We write \(\mathcal H_n\) for the set of orthogonal upper Hessenberg matrices in \(\mathbb {R}^{n\times n}\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:supp">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">2</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0001.html#def:supp">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0001.html#def:OH">Definition 1</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.OrthogonalHessenberg.supportDigraph" class="lean_decl">HessenbergDigraphs.OrthogonalHessenberg.supportDigraph</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   The <em>support digraph</em> of \(Q\), denoted \(D(Q)\), is the directed graph on \([n]\) with an arc \(i \to j\) whenever \(Q_{ij} \ne 0\). The classification problem is to describe, up to digraph isomorphism, the set \(\{ D(Q) : Q \in \mathcal H_n\} \). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:sign">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">3</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0001.html#def:sign">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/Matrix.SignEquiv" class="lean_decl">Matrix.SignEquiv</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>  Two matrices \(Q, Q' \in \mathbb {R}^{n\times n}\) are <em>sign-equivalent</em>, written \(Q \simeq _{\mathrm{sign}} Q'\), if \(Q' = D_L Q D_R\) for some diagonal matrices \(D_L, D_R\) with entries in \(\{ \pm 1\} \). Sign-equivalent matrices have identical zero / non-zero patterns, so \(D(Q) = D(Q')\). </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:givens">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">4</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0001.html#def:givens">#</a>
+    
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/Matrix.givensRotation" class="lean_decl">Matrix.givensRotation</a></li>
+          
+          <li><a href="../../docs/find/#doc/Matrix.givensProduct" class="lean_decl">Matrix.givensProduct</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>  For \(k \in \{ 0,\dots ,n-2\} \) and \(\theta \in \mathbb {R}\), the <em>Givens rotation</em> \(G_k(\theta ) \in \mathbb {R}^{n\times n}\) is the identity with the \(2\times 2\) block at rows / columns \((k, k+1)\) replaced by \(\bigl[\begin{smallmatrix} \cos \theta 
+
+&  -\sin \theta 
+
+\\ \sin \theta 
+
+&  \cos \theta 
+
+\end{smallmatrix}\bigr]\). The <em>ordered Givens product</em> of an angle vector \(\theta = (\theta _0, \dots , \theta _{n-2})\) is \(Q_n(\theta ) := G_0(\theta _0) G_1(\theta _1) \cdots G_{n-2}(\theta _{n-2})\). An angle vector is called <em>unreduced</em> if every \(\sin \theta _k\) is non-zero; we write \(\Theta _n\) for the set of such vectors. </p>
+
+  </div>
+</div>
+<div class="definition_thmwrapper theorem-style-definition" id="def:active">
+  <div class="definition_thmheading">
+    <span class="definition_thmcaption">
+    Definition
+    </span>
+    <span class="definition_thmlabel">5</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0001.html#def:active">#</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0001.html#def:givens">Definition 4</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.ActiveSet" class="lean_decl">HessenbergDigraphs.ActiveSet</a></li>
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.Arc" class="lean_decl">HessenbergDigraphs.Arc</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="definition_thmcontent">
+  <p>   For \(\theta \in \Theta _n\), the <em>active set</em> is \(S(\theta ) := \{  k \in [n-1] : \cos \theta _{k-1} \ne 0\} \). For any \(S \subseteq [n-1]\), set \(R(S) := \{ 1\}  \cup \{ k+1 : k \in S\} \) and \(C(S) := S \cup \{ n\} \), and define \(D_n(S)\) on \([n]\) to have arcs \(j+1 \to j\) for \(1 \le j \le n-1\) (<em>spine</em>) plus \(i \to j\) whenever \(i \in R(S)\), \(j \in C(S)\), \(i \le j\) (<em>overlay</em>). </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="index.html" title="Digraphs of real orthogonal upper Hessenberg matrices"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Digraphs of real orthogonal upper Hessenberg matrices"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0002.html" title="Main theorems"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

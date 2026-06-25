@@ -1,0 +1,12 @@
+{
+  "ignoreImport": ["Util.Linter.MathTag"],
+  "ignore": {
+    "HessenbergDigraphs.Combinatorial.Singleton.Fin": [
+      "Mathlib.Tactic.Linarith",
+      "Mathlib.Tactic.NormNum"
+    ],
+    "HessenbergDigraphs.Combinatorial.Enumeration": [
+      "Mathlib.Tactic.Linarith"
+    ]
+  }
+}

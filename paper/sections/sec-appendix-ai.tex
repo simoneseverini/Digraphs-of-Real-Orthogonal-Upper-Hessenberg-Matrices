@@ -1,0 +1,171 @@
+% !TEX root = ../main_hessenberg.tex
+\section{AI collaboration record}\label{sec:appendix-ai}
+
+Following the transparency conventions proposed in~\cite{schmitt2025}, we
+document the role of AI systems in producing the formalization described in
+Section~\ref{sec:methodology}. Throughout this appendix, human-authored
+paragraphs are marked with a blue bar and AI-generated text with an orange bar.
+
+\subsection{Agent architecture}
+
+\begin{humanparagraph}
+The formalization was produced using the following system:
+\begin{itemize}
+\item \textbf{Claude Code} (Opus~4.6): the primary Lean code generator, with
+  access to file read/write, \texttt{lake build}, and LSP diagnostics.
+\item \textbf{lean-prover sub-agent} (Aristotle~\cite{achim2025aristotleimolevelautomatedtheorem}): a
+  specialized agent with tools for checking tactic states, trying multiple
+  proof strategies in parallel, and parsing compiler errors.
+\item \textbf{Human}: strategy design, goal decomposition, and debugging.
+\end{itemize}
+\end{humanparagraph}
+
+\subsection{Proof difficulty classification}
+
+\begin{aiparagraph}
+The table below classifies each major theorem by difficulty and the degree of
+human intervention required.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\footnotesize
+\begin{tabular}{@{}p{5.4cm}ccl@{}}
+\toprule
+\textbf{Theorem} & \textbf{Difficulty} & \textbf{Autonomy} & \textbf{Human role} \\
+\midrule
+\texttt{SignEquiv.refl/symm} & Low & Full & --- \\
+\texttt{loop\_at\_first/last/mid} & Low & Full & --- \\
+\texttt{hcycle\_subset} & Low & Full & --- \\
+\texttt{backward\_arc\_is\_spine} & Low & Full & --- \\
+\texttt{cut\_lemma} & Low & Full & --- \\
+\texttt{loopless\_iff} & Medium & Full & --- \\
+\texttt{outDeg\_first}, \texttt{inDeg\_last} & Medium & High & Set decomposition hint \\
+\texttt{givensRotation\_orthogonal} & Medium & High & Pythagorean identity hint \\
+\texttt{givensProduct\_isUpperHessenberg} & Medium & Partial & \texttt{partialGivensProduct\_apply\_of\_row\_ge} helper \\
+\texttt{inDeg\_mem\_S} & Medium & Partial & Set decomposition \\
+\texttt{completeness} & Medium & High & $\pi/4$ vs.\ $\pi/2$ construction \\
+\texttt{count\_indep\_subsets} & Medium & High & Partition strategy \\
+\texttt{fixes\_last\_implies\_id} & High & Partial & Downward induction \\
+\texttt{digraph\_model} & High & Low & 5-lemma decomposition \\
+\texttt{singleton\_iso} & High & Partial & Modular arithmetic \\
+\texttt{singleton\_iso\_unique} & High & Low & In-degree characterization \\
+\texttt{rigid} & Highest & Low & Cut/pigeonhole strategy \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{aiparagraph}
+
+\subsection{Case study: the rigidity proof}
+
+\begin{humanparagraph}
+The proof of \texttt{rigid} (Theorem~\ref{thm:rigid}) was the single most
+challenging component, requiring multiple rounds of strategy revision.
+
+\medskip
+\noindent\textbf{Attempt~1: Degree argument.}
+The initial idea was to show that vertex~$1$ is the unique vertex with
+out-degree $|S| + 1$, forcing any isomorphism to fix it. This fails because
+for singletons $|S| = 1$, another vertex can share the same out-degree.
+
+\medskip
+\noindent\textbf{Attempt~2: Chain along Hamilton cycle.}
+If $\sigma$ fixes vertex~$n$, backward spine arcs force
+$\sigma(n{-}1) = n{-}1$, $\sigma(n{-}2) = n{-}2$, etc. This reasoning is
+correct and became \texttt{fixes\_last\_implies\_id}, but it requires first
+proving that $\sigma$ \emph{does} fix vertex~$n$.
+
+\medskip
+\noindent\textbf{Attempt~3: Cut/pigeonhole (successful).}
+The human proposed:
+\begin{enumerate}
+\item Suppose $\sigma(n) = w \neq n$.
+\item In-degree analysis forces $w + 1 \in S'$.
+\item The cut lemma constrains arcs crossing the cut at $w$.
+\item Case split on $\sigma(1)$ relative to $w$:
+  \begin{itemize}
+  \item $\sigma(1) < w$: pigeonhole gives a contradiction
+    (\texttt{perm\_image\_below\_cut}).
+  \item $\sigma(1) > w$: out-degree counting gives a contradiction
+    (\texttt{perm\_image\_above\_cut}).
+  \end{itemize}
+\item Hence $\sigma$ fixes $n$; apply \texttt{fixes\_last\_implies\_id}.
+\end{enumerate}
+Each sub-lemma was stated by the human with explicit hypotheses; the AI agent
+proved each independently. The final assembly was straightforward.
+\end{humanparagraph}
+
+\subsection{Case study: the bridge theorem}
+
+\begin{humanparagraph}
+The bridge theorem (\texttt{digraph\_model}) was decomposed into five lemmas:
+\begin{enumerate}
+\item \texttt{givensProduct\_row\_vanishing}: $\cos(\theta_{i-1}) = 0$ implies row~$i$ is
+  zero in the upper triangle.
+\item \texttt{givensProduct\_col\_vanishing}: $\cos(\theta_j) = 0$ implies column~$j$ is
+  zero in the upper triangle.
+\item \texttt{partialGivensProduct\_propagation}: $\cos(\theta_{i-1}) \neq 0$ implies entry
+  $(i, m{+}1)$ is nonzero for all $m \ge i$.
+\item \texttt{partialGivensProduct\_apply\_of\_col\_ge}: columns beyond the first $m$ Givens factors are
+  untouched.
+\item \texttt{givensProduct\_apply\_subdiag\_ne\_zero}: subdiagonal entries equal
+  $\sin(\theta_j) \neq 0$.
+\end{enumerate}
+The agent initially tried to prove \texttt{digraph\_model} monolithically and
+failed. After the human provided the five-lemma decomposition, each piece was
+proved independently. The introduction of
+\texttt{givensRotation.apply\_of\_ne\_col} (a reusable API for Givens entry
+evaluation) resolved repeated failures from ad-hoc \texttt{givensRotation}
+unfolding.
+\end{humanparagraph}
+
+\subsection{Failure modes and lessons}
+
+\begin{humanparagraph}
+\begin{enumerate}
+\item \textbf{Lost work via \texttt{git checkout}} (twice). Uncommitted proofs
+  were discarded. \emph{Lesson}: commit after every successful proof.
+
+\item \textbf{LSP timeouts}. Complex lemmas caused the Lean server to time
+  out, which the agent misinterpreted as proof failure.
+  \emph{Lesson}: set \texttt{maxHeartbeats} proactively.
+
+\item \textbf{Unproductive unfolding}. The agent repeatedly expanded
+  \texttt{givensRotation} instead of using named lemmas.
+  \emph{Lesson}: encapsulate entry-level facts into reusable API lemmas.
+
+\item \textbf{Tactic explosion in modular arithmetic}. The proofs of
+  \texttt{singleton\_iso} and \texttt{singleton\_iso\_unique} generated
+  hundreds of subgoals from modular arithmetic case splits.
+  \emph{Lesson}: use \texttt{omega} and \texttt{grind} aggressively.
+
+\item \textbf{Strategy persistence}. When a proof approach failed, the agent
+  sometimes persisted with minor variations rather than reconsidering.
+  \emph{Lesson}: set retry limits and escalate to human review.
+\end{enumerate}
+\end{humanparagraph}
+
+\subsection{Representative strategy prompts}
+
+\begin{humanparagraph}
+\noindent\textbf{Prompt~1} (Rigidity via cut/pigeonhole):
+\begin{quote}\itshape
+Suppose $\sigma(n{-}1) \neq n{-}1$, so $\sigma$ maps vertex~$n$ to some
+$w < n$. Use in-degree analysis to show $w{+}1 \in S'$, then the cut lemma to
+constrain all values. Split on whether $\sigma(0) < w$ or $\sigma(0) \ge w$.
+Below: pigeonhole. Above: out-degree contradiction.
+\end{quote}
+
+\noindent\textbf{Prompt~2} (Bridge decomposition):
+\begin{quote}\itshape
+Don't prove \texttt{digraph\_model} directly. First prove: (1) row vanishing,
+(2) col vanishing, (3) propagation, (4) identity cols, (5) subdiag nonzero.
+Each by induction on $m$ using the \texttt{List.ofFn} splitting.
+\end{quote}
+
+\noindent\textbf{Prompt~3} (Completeness construction):
+\begin{quote}\itshape
+Set $\theta_k = \pi/4$ if $k{+}1 \in S$, else $\pi/2$.
+Then $\sin \neq 0$ always and $\cos \neq 0 \iff k{+}1 \in S$.
+Use \texttt{positivity} for $\sqrt{2}/2 \neq 0$.
+\end{quote}
+\end{humanparagraph}

@@ -1,0 +1,40 @@
+name = "HessenbergDigraphs"
+defaultTargets = ["HessenbergDigraphs"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.28.0"
+
+[[require]]
+name = "doc-gen4"
+git = "https://github.com/leanprover/doc-gen4"
+rev = "v4.28.0"
+
+[[lean_lib]]
+name = "HessenbergUtil"
+roots = ["Util.Linter.MathTag"]
+
+[[lean_lib]]
+name = "HessenbergDigraphs"
+roots = ["HessenbergDigraphs"]
+leanOptions = [
+  { name = "weak.linter.mathlibStandardSet", value = true },
+  { name = "weak.linter.hessenbergMathTag", value = true },
+]
+
+[[lean_lib]]
+name = "HessenbergCompute"
+roots = ["HessenbergDigraphs.Compute", "HessenbergDigraphs.Render", "HessenbergDigraphs.Command"]
+leanOptions = [
+  { name = "weak.linter.mathlibStandardSet", value = true },
+  { name = "weak.linter.hessenbergMathTag", value = true },
+]
+
+[[lean_exe]]
+name = "hessenberg-audit"
+root = "Util.Audit"
+
+[[lean_exe]]
+name = "hessenberg-compression"
+root = "Util.Compression"

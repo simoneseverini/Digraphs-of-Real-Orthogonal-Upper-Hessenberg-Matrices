@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digraphs of real orthogonal upper Hessenberg matrices</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+<style>
+  :root {
+    --gradient-start: #1976d2; --gradient-end: #2da44e;
+    --text: #1a1a1a; --muted: #555; --link: #2962a3;
+    --code-bg: #fafafa; --code-border: #eaeaea;
+    --kw: #7c4dff; --const: #2962a3; --var: #006666; --punct: #444;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); line-height: 1.65; }
+  .hero {
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white; padding: 4.5rem 2rem 5rem; text-align: center;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 3.6vw, 2.85rem); margin: 0 0 2.5rem; font-weight: 800; letter-spacing: -0.02em; }
+  .nav-buttons { display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; }
+  .nav-buttons a {
+    background: rgba(255,255,255,0.16); color: white; padding: 0.7rem 1.6rem;
+    border-radius: 5px; text-decoration: none; border: 1px solid rgba(255,255,255,0.32);
+    font-weight: 600; transition: background 0.18s, transform 0.18s; font-size: 0.95rem;
+  }
+  .nav-buttons a:hover { background: rgba(255,255,255,0.28); transform: translateY(-1px); }
+  main { max-width: 760px; margin: 3rem auto 5rem; padding: 0 2rem; }
+  main p { font-size: 1.05rem; }
+  main h2 { font-size: 1.35rem; margin: 2.5rem 0 0.75rem; font-weight: 700; }
+  main a { color: var(--link); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+  main a:hover { border-bottom-color: var(--link); }
+  pre.lean {
+    background: var(--code-bg); border: 1px solid var(--code-border);
+    border-radius: 6px; padding: 1rem 1.2rem; overflow-x: auto;
+    font-family: 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 0.875rem; line-height: 1.55; margin: 1.25rem 0;
+  }
+  pre.lean .kw    { color: var(--kw); font-weight: 600; }
+  pre.lean .const { color: var(--const); }
+  pre.lean .var   { color: var(--var); }
+  pre.lean .punct { color: var(--punct); }
+  pre.lean .name  { color: #c9540a; font-weight: 600; }
+  pre.lean .com   { color: #888; font-style: italic; }
+  .code-caption { color: var(--muted); font-size: 0.9rem; margin: 0.5rem 0 0; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Digraphs of real orthogonal upper Hessenberg matrices</h1>
+  <nav class="nav-buttons">
+    <a href="verso/_site/html-multi/">Verso</a>
+    <a href="blueprint/web/">Blueprint</a>
+    <a href="https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+<p>
+  This project gives a complete classification, formalised in
+  <a href="https://lean-lang.org/">Lean&nbsp;4</a> on top of
+  <a href="https://leanprover-community.github.io/">Mathlib</a>,
+  of the support digraphs of real orthogonal upper Hessenberg matrices.
+  The support digraph $D(Q)$ of a matrix $Q \in \mathbb{R}^{n\times n}$
+  is the directed graph on $[n]$ with an arc $i \to j$ whenever
+  $Q_{ij} \ne 0$.
+</p>
+
+<p>
+  The main result. An unreduced $Q \in \mathcal{H}_n$ is sign-equivalent
+  to a canonical Givens product $Q_n(\theta)$, and the support digraph
+  of that product is determined by an active set $S \subseteq [n-1]$.
+  Up to digraph isomorphism, the connected support digraphs on $n$
+  vertices are enumerated by
+</p>
+
+<p style="text-align:center; font-size: 1.15rem;">
+  $$N_n \;=\; 2^{\,n-1} \;-\; \lfloor (n-1)/2 \rfloor.$$
+</p>
+
+<p>
+  A loopless restriction reduces this to
+  $F_{n-1} - \lfloor (n-3)/2 \rfloor$, with $F_k$ the $k$-th Fibonacci
+  number. The four pillar theorems — universality, bridge, rigidity,
+  and the apex classification — and the two enumeration counts are
+  formalised with zero <code>sorry</code> and depend only on Lean&nbsp;4's
+  three standard axioms.
+</p>
+
+<h2>Main theorem</h2>
+
+<p>The Lean apex declaration assembles realisability, the matrix /
+combinatorial bridge, and the rigidity of the active-set family:</p>
+
+<pre class="lean"><span class="kw">theorem</span> <span class="name">classification</span> <span class="punct">{</span><span class="var">n</span> <span class="punct">:</span> <span class="const">ℕ</span><span class="punct">}</span> <span class="punct">(</span><span class="var">hn</span> <span class="punct">:</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">n</span><span class="punct">)</span> <span class="punct">:</span>
+    <span class="punct">(</span><span class="kw">∀</span> <span class="var">S</span> <span class="punct">:</span> <span class="const">ActiveSet</span> <span class="var">n</span><span class="punct">,</span> <span class="kw">∃</span> <span class="var">θ</span> <span class="punct">:</span> <span class="const">UnreducedAngles</span> <span class="var">n</span><span class="punct">,</span> <span class="var">θ</span><span class="punct">.</span><span class="const">activeSet</span> <span class="const">=</span> <span class="var">S</span><span class="punct">)</span> <span class="kw">∧</span>
+    <span class="punct">(</span><span class="kw">∀</span> <span class="var">θ</span> <span class="punct">:</span> <span class="const">UnreducedAngles</span> <span class="var">n</span><span class="punct">,</span> <span class="var">θ</span><span class="punct">.</span><span class="const">product</span><span class="punct">.</span><span class="const">supportDigraph</span> <span class="const">=</span> <span class="var">θ</span><span class="punct">.</span><span class="const">activeSet</span><span class="punct">.</span><span class="const">digraph</span><span class="punct">)</span> <span class="kw">∧</span>
+    <span class="punct">(</span><span class="kw">∀</span> <span class="var">S</span> <span class="var">S'</span> <span class="punct">:</span> <span class="const">ActiveSet</span> <span class="var">n</span><span class="punct">,</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">S</span><span class="punct">.</span><span class="const">elements</span><span class="punct">.</span><span class="const">card</span> <span class="kw">→</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">S'</span><span class="punct">.</span><span class="const">elements</span><span class="punct">.</span><span class="const">card</span> <span class="kw">→</span>
+        <span class="var">S</span><span class="punct">.</span><span class="const">digraph</span> <span class="const">≅</span> <span class="var">S'</span><span class="punct">.</span><span class="const">digraph</span> <span class="kw">→</span> <span class="var">S</span> <span class="const">=</span> <span class="var">S'</span><span class="punct">)</span> <span class="punct">:=</span>
+  <span class="punct">⟨</span><span class="const">completeness</span><span class="punct">,</span> <span class="const">digraph_model</span> <span class="var">hn</span><span class="punct">,</span> <span class="kw">fun</span> <span class="var">S</span> <span class="var">S'</span> <span class="kw">=&gt;</span> <span class="const">rigid</span> <span class="var">S</span> <span class="var">S'</span> <span class="var">hn</span><span class="punct">⟩</span></pre>
+
+<p class="code-caption">
+  The signature reads as a paper sentence: every active set is
+  realised; the support of every Givens product equals the
+  active-set digraph; and isomorphic active-set digraphs of size
+  $\ge 2$ are equal.
+</p>
+
+<h2>Rigidity</h2>
+
+<p>The combinatorial heart of the classification. Every isomorphism
+between $D_n(S)$ and $D_n(S')$ with $|S|, |S'| \ge 2$ fixes the unique
+directed Hamilton cycle and forces $S = S'$.</p>
+
+<pre class="lean"><span class="kw">theorem</span> <span class="name">rigid</span> <span class="punct">{</span><span class="var">n</span> <span class="punct">:</span> <span class="const">ℕ</span><span class="punct">}</span> <span class="punct">(</span><span class="var">S</span> <span class="var">S'</span> <span class="punct">:</span> <span class="const">ActiveSet</span> <span class="var">n</span><span class="punct">)</span> <span class="punct">(</span><span class="var">hn</span> <span class="punct">:</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">n</span><span class="punct">)</span>
+    <span class="punct">(</span><span class="var">hcard</span> <span class="punct">:</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">S</span><span class="punct">.</span><span class="const">elements</span><span class="punct">.</span><span class="const">card</span><span class="punct">)</span> <span class="punct">(</span><span class="var">hcard'</span> <span class="punct">:</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">S'</span><span class="punct">.</span><span class="const">elements</span><span class="punct">.</span><span class="const">card</span><span class="punct">)</span>
+    <span class="punct">(</span><span class="var">hiso</span> <span class="punct">:</span> <span class="var">S</span><span class="punct">.</span><span class="const">digraph</span> <span class="const">≅</span> <span class="var">S'</span><span class="punct">.</span><span class="const">digraph</span><span class="punct">)</span> <span class="punct">:</span> <span class="var">S</span> <span class="const">=</span> <span class="var">S'</span></pre>
+
+<h2>Counting the classes</h2>
+
+<p>The enumeration is a genuine cardinality, not merely an arithmetic
+identity: the active sets <em>modulo digraph isomorphism</em> number exactly
+$N_n$. The quotient is formed by the isomorphism relation directly.</p>
+
+<pre class="lean"><span class="kw">theorem</span> <span class="name">card_isoClasses_quot</span> <span class="punct">{</span><span class="var">n</span> <span class="punct">:</span> <span class="const">ℕ</span><span class="punct">}</span> <span class="punct">(</span><span class="var">hn</span> <span class="punct">:</span> <span class="punct">2</span> <span class="const">≤</span> <span class="var">n</span><span class="punct">)</span> <span class="punct">:</span>
+    <span class="const">Nat.card</span> <span class="punct">(</span><span class="const">Quotient</span> <span class="punct">(</span><span class="const">isoSetoid</span> <span class="var">n</span><span class="punct">))</span> <span class="const">=</span> <span class="punct">2</span> <span class="const">^</span> <span class="punct">(</span><span class="var">n</span> <span class="const">-</span> <span class="punct">1</span><span class="punct">)</span> <span class="const">-</span> <span class="punct">(</span><span class="var">n</span> <span class="const">-</span> <span class="punct">1</span><span class="punct">)</span> <span class="const">/</span> <span class="punct">2</span></pre>
+
+<p class="code-caption">
+  The quotient of active sets by digraph isomorphism (<code>isoSetoid</code>)
+  has exactly $2^{n-1} - \lfloor (n-1)/2 \rfloor$ elements; the loopless
+  restriction is $F_{n-1} - \lfloor (n-3)/2 \rfloor$
+  (<code>card_looplessClasses_quot</code>). Paper: Theorems&nbsp;12 and&nbsp;15.
+</p>
+
+</main>
+
+</body>
+</html>

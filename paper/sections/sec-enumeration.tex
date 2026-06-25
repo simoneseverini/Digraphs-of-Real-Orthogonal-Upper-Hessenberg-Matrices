@@ -1,0 +1,164 @@
+% !TEX root = ../main_hessenberg.tex
+%\section{Isomorphism classes and enumeration}\label{sec:enumeration}
+
+Having established the combinatorial model $D_n(S)$ and characterized
+connectivity, we now address uniqueness: when do different subsets $S$ produce
+genuinely different digraphs? The answer is almost always: the digraphs
+$D_n(S)$ possess a tightly constrained cyclic structure that makes them
+\emph{rigid}---distinct subsets yield non-isomorphic digraphs, with the sole
+exception of singletons, where a natural cyclic symmetry identifies $S = \{t\}$
+with $S = \{n - t\}$. These results lead to an exact enumeration formula.
+
+%\subsection{Hamilton cycle and degrees}
+
+\begin{lemma}[Unique Hamilton cycle, \leanlink{HessenbergDigraphs.lean}{L240-L250}{hcycle\_subset} \leanlink{HessenbergDigraphs.lean}{L396-L427}{cut\_lemma}]\label{lem:unique-hc}
+Let $n \ge 2$ and $S \subseteq [n-1]$. The digraph $D_n(S)$ contains exactly
+one directed Hamilton cycle, namely
+$H = 1 \to n \to n{-}1 \to \cdots \to 2 \to 1$.
+\end{lemma}
+\begin{proof}
+For any $k \in [n-1]$, consider the directed cut from the vertex subset
+$V_{>k} = \{k{+}1, \dots, n\}$ to $V_{\le k} = \{1, \dots, k\}$. By
+Theorem~\ref{thm:digraph-model}, overlay arcs satisfy $i \le j$ and hence
+never cross from higher to lower indices. The only arc spanning from $V_{>k}$
+to $V_{\le k}$ is therefore the spine arc $(k{+}1) \to k$.
+
+Any directed Hamilton cycle must cross this cut at least once, so it must use
+the spine arc $(k{+}1) \to k$ for every $k \in [n-1]$. This forces the path
+$n \to n{-}1 \to \cdots \to 1$. To close the cycle, the arc $1 \to n$ is
+required; since $1 \in R$ and $n \in C$ with $1 \le n$, this arc exists.
+Thus $H$ is the unique directed Hamilton cycle.
+\end{proof}
+
+\begin{remark}
+The proof of Lemma~\ref{lem:unique-hc} immediately yields a stronger
+statement: the only arc from $\{k{+}1, \dots, n\}$ to $\{1, \dots, k\}$ is the
+spine arc $(k{+}1, k)$. We record this as the \emph{cut lemma}, which plays a
+central role in the rigidity proof.
+\end{remark}
+
+\begin{proposition}[Degree formulas, \leanlink{HessenbergDigraphs.lean}{L284-L308}{outDeg\_one} \leanlink{HessenbergDigraphs.lean}{L309-L335}{inDeg\_n} \leanlink{HessenbergDigraphs.lean}{L428-L457}{inDeg\_mem\_S}]\label{prop:degrees}
+Let $D = D_n(S)$ with $m \defeq |S|$. Then $|R| = |C| = m + 1$ and the
+degrees are:
+\begin{align*}
+d^{+}(1) &= m + 1, \\
+d^{+}(i) &= \begin{cases}
+  1 & \text{if } i > 1 \text{ and } i - 1 \notin S, \\
+  1 + |C \cap \{i, \dots, n\}| & \text{if } i > 1 \text{ and } i - 1 \in S,
+\end{cases} \\[1ex]
+d^{-}(j) &= \begin{cases}
+  1 & \text{if } j \in [n{-}1] \setminus S, \\
+  2 + |S \cap \{1, \dots, j{-}1\}| & \text{if } j \in S, \\
+  m + 1 & \text{if } j = n.
+\end{cases}
+\end{align*}
+\end{proposition}
+\begin{proof}
+The out-degree of $i > 1$ includes the spine arc to $i - 1$; overlay
+out-neighbors appear precisely when $i \in R$, pointing to vertices
+$j \in C$ with $j \ge i$. The in-degree of $j < n$ includes the spine arc
+from $j + 1$; additional in-neighbors appear when $j \in C$, from vertices
+$i \in R$ with $i \le j$. For $j = n$, there is no spine arc from $n + 1$,
+but every element of $R$ sends an overlay arc to $n$, giving
+$d^{-}(n) = |R| = m + 1$.
+\end{proof}
+
+%\subsection{Rigidity}
+
+The degree formulas above already hint that $D_n(S)$ encodes a great deal of
+information about~$S$. We now show that, when $|S| \ge 2$, the digraph
+determines $S$ \emph{uniquely}: any isomorphism between $D_n(S)$ and $D_n(S')$
+must be the identity.
+
+\begin{theorem}[Rigidity, \leanlink{HessenbergDigraphs.lean}{L706-L844}{rigid}]\label{thm:rigid}
+If $|S| \ge 2$, $|S'| \ge 2$, and $D_n(S) \cong D_n(S')$, then $S = S'$.
+\end{theorem}
+\begin{proof}
+Let $m = |S| \ge 2$ and let $\varphi$ be an isomorphism from $D_n(S)$ to
+$D_n(S')$. By Lemma~\ref{lem:unique-hc}, both digraphs contain exactly one
+directed Hamilton cycle. Since $\varphi$ maps the unique cycle $H$ of $D_n(S)$
+to the unique cycle $H'$ of $D_n(S')$, it acts as a cyclic rotation of the
+vertices along $H$.
+
+Let $S = \{s_1 < s_2 < \cdots < s_m\}$. By Proposition~\ref{prop:degrees},
+the in-degrees of vertices in $C = S \cup \{n\}$ are
+$d^{-}(s_k) = k + 1$ for $1 \le k \le m$ and $d^{-}(n) = m + 1$. All other
+vertices have in-degree~$1$. Since $m \ge 2$, the vertex $s_{m-1}$ is the
+unique vertex with in-degree exactly $m$. Any isomorphism must fix $s_{m-1}$.
+
+Since $\varphi$ is a cyclic rotation along $H$ fixing $s_{m-1}$, it must be
+the identity. If $\Phi : D_n(S) \to D_n(S')$ is an isomorphism, the same
+argument applied to the maximum in-degree vertices $s_m$ and $n$ shows that
+$\Phi(\{s_m, n\}) = \{s'_m, n\}$.
+
+If $\Phi(n) = s'_m$, then the directed distances along $H$ from $n$ to
+$s_{m-1}$ and from $s_m$ to $s_{m-1}$ yield the equations
+$n - s_{m-1} = s'_m - s'_{m-1}$ and $s_m - s_{m-1} = n - s'_{m-1}$.
+Subtracting gives $s_m + s'_m = 2n$, contradicting
+$s_m \le n - 1$ and $s'_m \le n - 1$.
+
+Therefore $\Phi(n) = n$, and since directed distances from $n$ along the
+Hamilton cycle are preserved, $\Phi$ is the identity and $S = S'$.
+\end{proof}
+
+%\subsection{Singleton isomorphisms}
+
+When $|S| = 1$, rigidity fails: the Hamilton cycle admits a nontrivial cyclic
+rotation that maps one singleton digraph to another. The following lemma
+characterizes exactly which singletons are isomorphic.
+
+\begin{lemma}[\leanlink{HessenbergDigraphs.lean}{L876-L1015}{singleton\_iso} \leanlink{HessenbergDigraphs.lean}{L1016-L1138}{singleton\_iso\_unique}]\label{lem:one}
+Let $S = \{t\} \subseteq [n-1]$ and define $D_{n,t} \defeq D_n(\{t\})$. Then
+$D_{n,t} \cong D_{n,n-t}$. Moreover, if $D_{n,t} \cong D_{n,t'}$, then
+$\{t, n - t\} = \{t', n - t'\}$.
+\end{lemma}
+\begin{proof}
+The digraph $D_{n,t}$ consists of the Hamilton cycle $H$ together with two
+overlay arcs (``chords''): $1 \to t$ and $(t{+}1) \to n$. The cyclic rotation
+$\rho^t$ (where $\rho(i) = i - 1$ for $i > 1$ and $\rho(1) = n$) maps
+$1 \to t$ to $(n{-}t{+}1) \to n$ and $(t{+}1) \to n$ to $1 \to (n{-}t)$,
+which are exactly the chords of $D_{n,n-t}$.
+
+Conversely, by Proposition~\ref{prop:degrees}, the vertices with in-degree~$2$
+in $D_{n,t}$ are precisely $t$ and $n$. Since $H$ is the unique Hamilton cycle,
+any isomorphism preserves directed distances along $H$. The paths between $n$
+and $t$ along $H$ have lengths $t$ and $n - t$. This unordered pair
+$\{t, n - t\}$ is an isomorphism invariant, so
+$D_{n,t} \cong D_{n,t'}$ implies $\{t, n - t\} = \{t', n - t'\}$.
+\end{proof}
+
+%\subsection{Exact enumeration}
+
+Combining the rigidity of multi-element subsets with the singleton
+isomorphisms, we can now count the total number of non-isomorphic connected
+support digraphs.
+
+\begin{theorem}[Enumeration, \leanlink{HessenbergDigraphs.lean}{L1150-L1160}{count\_formula}]\label{thm:count}
+Let $n \ge 2$. The number of non-isomorphic weakly connected support digraphs
+of real orthogonal upper Hessenberg matrices of size $n$ is
+\[
+N_n = 2^{n-1} - \Big\lfloor \frac{n-1}{2} \Big\rfloor.
+\]
+\end{theorem}
+\begin{proof}
+By Corollary~\ref{cor:connected=unreduced} and Theorem~\ref{thm:digraph-model},
+the connected support digraphs correspond to $D_n(S)$ for
+$S \subseteq [n-1]$, giving $2^{n-1}$ labeled configurations.
+
+\begin{itemize}[leftmargin=2em]
+\item If $|S| \ge 2$: Theorem~\ref{thm:rigid} shows that distinct sets yield
+  non-isomorphic digraphs. There are
+  $\sum_{m=2}^{n-1} \binom{n-1}{m} = 2^{n-1} - n$ such sets.
+\item If $S = \emptyset$: there is exactly $1$ digraph (the directed $n$-cycle).
+\item If $|S| = 1$: Lemma~\ref{lem:one} partitions the $n - 1$ singletons
+  $\{t\}$ into classes $\{t, n - t\}$, yielding
+  $\lceil(n-1)/2\rceil$ distinct classes.
+\end{itemize}
+
+Summing:
+\[
+N_n
+= (2^{n-1} - n) + 1 + \lceil(n{-}1)/2\rceil
+= 2^{n-1} - \lfloor(n{-}1)/2\rfloor. \qedhere
+\]
+\end{proof}

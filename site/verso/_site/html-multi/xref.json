@@ -1,0 +1,159 @@
+{"Verso.Genre.Manual.section":
+ {"title": "Sections or chapters of the manual",
+  "description": null,
+  "contents":
+  {"Digraphs-of-real-orthogonal-upper-Hessenberg-matrices--Setup-and-definitions":
+   [{"id":
+     "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices--Setup-and-definitions",
+     "data":
+     {"title": "Setup and definitions",
+      "shortTitle": null,
+      "sectionNum": "1.",
+      "context":
+      [{"title": "Digraphs of real orthogonal upper Hessenberg matrices",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Setup and definitions", "shortTitle": null, "number": "1"}]},
+     "address": "/Setup-and-definitions/"}],
+   "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices--Main-theorems":
+   [{"id":
+     "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices--Main-theorems",
+     "data":
+     {"title": "Main theorems",
+      "shortTitle": null,
+      "sectionNum": "2.",
+      "context":
+      [{"title": "Digraphs of real orthogonal upper Hessenberg matrices",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Main theorems", "shortTitle": null, "number": "2"}]},
+     "address": "/Main-theorems/"}],
+   "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices--Enumeration-consequences":
+   [{"id":
+     "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices--Enumeration-consequences",
+     "data":
+     {"title": "Enumeration consequences",
+      "shortTitle": null,
+      "sectionNum": "3.",
+      "context":
+      [{"title": "Digraphs of real orthogonal upper Hessenberg matrices",
+        "shortTitle": null,
+        "number": null},
+       {"title": "Enumeration consequences",
+        "shortTitle": null,
+        "number": "3"}]},
+     "address": "/Enumeration-consequences/"}],
+   "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices":
+   [{"id": "Digraphs-of-real-orthogonal-upper-Hessenberg-matrices",
+     "data":
+     {"title": "Digraphs of real orthogonal upper Hessenberg matrices",
+      "shortTitle": null,
+      "sectionNum": "",
+      "context":
+      [{"title": "Digraphs of real orthogonal upper Hessenberg matrices",
+        "shortTitle": null,
+        "number": null}]},
+     "address": "/"}]}},
+ "Verso.Genre.Manual.doc.tech":
+ {"title": "Terminology",
+  "description": "Definitions of technical terms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic.conv":
+ {"title": "Conversion Tactics",
+  "description": "Tactics for performing targeted rewriting of subterms",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.tactic":
+ {"title": "Tactic Documentation",
+  "description": "Detailed descriptions of tactics",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.suggestion":
+ {"title": "Lean constant suggestions",
+  "description": "Search suggestions for Lean constants",
+  "contents": {}},
+ "Verso.Genre.Manual.doc.option":
+ {"title": "Compiler options", "description": null, "contents": {}},
+ "Verso.Genre.Manual.doc":
+ {"title": "Lean constant reference",
+  "description": "Documentation for Lean constants",
+  "contents":
+  {"Matrix.givensRotation":
+   [{"id": "Matrix___givensRotation",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "Matrix.givensProduct":
+   [{"id": "Matrix___givensProduct",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "Matrix.SignEquiv":
+   [{"id": "Matrix___SignEquiv",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.rigid":
+   [{"id": "HessenbergDigraphs___rigid",
+     "data": null,
+     "address": "/Main-theorems/"}],
+   "HessenbergDigraphs.example_D6_S24":
+   [{"id": "HessenbergDigraphs___example_D6_S24",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.example_D5_S2":
+   [{"id": "HessenbergDigraphs___example_D5_S2",
+     "data": null,
+     "address": "/Main-theorems/"}],
+   "HessenbergDigraphs.example_D5_S13":
+   [{"id": "HessenbergDigraphs___example_D5_S13",
+     "data": null,
+     "address": "/Main-theorems/"}],
+   "HessenbergDigraphs.digraph_model":
+   [{"id": "HessenbergDigraphs___digraph_model",
+     "data": null,
+     "address": "/Main-theorems/"}],
+   "HessenbergDigraphs.classification":
+   [{"id": "HessenbergDigraphs___classification",
+     "data": null,
+     "address": "/Main-theorems/"}],
+   "HessenbergDigraphs.card_looplessClasses_quot":
+   [{"id": "HessenbergDigraphs___card_looplessClasses_quot",
+     "data": null,
+     "address": "/Enumeration-consequences/"}],
+   "HessenbergDigraphs.card_isoClasses_quot":
+   [{"id": "HessenbergDigraphs___card_isoClasses_quot",
+     "data": null,
+     "address": "/Enumeration-consequences/"}],
+   "HessenbergDigraphs.OrthogonalHessenberg.supportDigraph":
+   [{"id": "HessenbergDigraphs___OrthogonalHessenberg___supportDigraph",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.OrthogonalHessenberg.mk":
+   [{"id": "HessenbergDigraphs___OrthogonalHessenberg___mk",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.OrthogonalHessenberg.exists_givensFactorization":
+   [{"id":
+     "HessenbergDigraphs___OrthogonalHessenberg___exists_givensFactorization",
+     "data": null,
+     "address": "/Main-theorems/"}],
+   "HessenbergDigraphs.OrthogonalHessenberg":
+   [{"id": "HessenbergDigraphs___OrthogonalHessenberg___mk",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.Arc.spine":
+   [{"id": "HessenbergDigraphs___Arc___spine",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.Arc.overlay":
+   [{"id": "HessenbergDigraphs___Arc___spine",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.Arc":
+   [{"id": "HessenbergDigraphs___Arc___spine",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.ActiveSet.mk":
+   [{"id": "HessenbergDigraphs___ActiveSet___mk",
+     "data": null,
+     "address": "/Setup-and-definitions/"}],
+   "HessenbergDigraphs.ActiveSet":
+   [{"id": "HessenbergDigraphs___ActiveSet___mk",
+     "data": null,
+     "address": "/Setup-and-definitions/"}]}}}

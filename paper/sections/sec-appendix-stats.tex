@@ -1,0 +1,31 @@
+% !TEX root = ../main_hessenberg.tex
+
+\begin{comment}
+\section{Code statistics}\label{sec:appendix-stats}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Total lines of Lean code & 2\,227 \\
+Definitions (\texttt{def}/\texttt{noncomputable def}) & 19 \\
+Theorems and lemmas & 48 \\
+\texttt{sorry} count & 0 \\
+Axioms (via \texttt{\#print axioms}) & 3 \\
+\quad\texttt{propext} & \\
+\quad\texttt{Classical.choice} & \\
+\quad\texttt{Quot.sound} & \\
+\texttt{maxHeartbeats} overrides & 2 (both 800\,000) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The two \texttt{maxHeartbeats} overrides apply to \texttt{singleton\_iso} and
+\texttt{singleton\_iso\_unique}, both involving extensive modular arithmetic
+case analysis. All other proofs compile within the default heartbeat limit.
+
+The source code is available at
+\url{https://github.com/[repository]}.
+\end{comment}

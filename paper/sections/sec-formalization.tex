@@ -1,0 +1,164 @@
+% !TEX root = ../main_hessenberg.tex
+\section{Formalization as the primary artifact}\label{sec:methodology}
+
+\sloppy
+
+In dependent type theory, a Lean formalization is inherently a proof~\cite{deMoura2021Lean4}, requiring no accompanying prose. On this basis, we treat the Lean development as the primary mathematical artifact of this project, and the prose as merely one rendering of it. Because the human contribution shifts from writing code to exercising mathematical judgment and steering the AI, the central object of study of this paper is precisely prompt design. Getting the proof to compile is the starting point of that work, not its endpoint. What distinguishes a primary mathematical artifact from a mere verification record lies entirely past that threshold: it depends on whether the code, in its own form, legibly conveys its mathematical content. Finally, we acknowledge that neither author has a formal software engineering background. We treat AI tools as informal mentors in software practice, working to elevate this project to structural standards we did not initially command, and we expect our execution will still reflect this learning curve.
+
+\medskip
+\noindent\textbf{Prompt example --- project bootstrap.}
+\begin{quote}\itshape\small
+The goal is not just proving the main theorem; it is producing code
+whose main theorem signature reads as a literal translation of the paper
+sentence. Engineering tax should be separated from mathematical content
+and encapsulated in independent modules; every name should carry clear
+mathematical semantics. Survey the paper's core mathematical objects;
+propose a Foundation-structure design. Output the design only; do
+not implement until I confirm.
+\end{quote}
+
+%\subsection{Engineering tax: see it, then move it}\label{ssec:tax}
+
+We refer to type-theoretic overhead with no paper analogue as
+\emph{engineering tax}. Left unmanaged, this tax sits mixed among
+mathematical-layer declarations and muddles the mathematical narrative.
+Three forms recur in this project:
+\begin{itemize}[leftmargin=2em, itemsep=2pt, topsep=2pt]
+\item bound-carrying boilerplate, where anonymous-constructor
+  expressions bundle a value together with proofs that it lies in range;
+\item index translations, where the formal system's natural index
+  types differ from the paper's mathematical indexing conventions;
+\item case analyses on small numeric ranges, where boundary cases
+  dismissed by the paper in a single sentence require explicit,
+  separate handling.
+\end{itemize}
+A typical instance is the lemma \texttt{cyclic\_shift\_arc\_forward}:
+its statement reads like a standard mathematical theorem, while its proof body
+spans roughly $80$ lines combining all three forms of overhead. A casual
+reading of the code easily overlooks the true density of this burden.
+
+To surface this hidden overhead, we tag every declaration as \texttt{Math}, 
+\texttt{Eng}, or \texttt{Mixed}. Because these tags are formatted as docstrings 
+above each declaration, they travel inherently with the code:
+\begin{lstlisting}
+/-! ## Mathematical layer -- paper-side vertex type. A `Vertex n`
+    is a label `v ∈ {1, ..., n}` (Sec. 0 of the paper). -/
+
+/-! ## Engineering layer -- Type B bridge: `Vertex n ↔ Fin n`
+    (paper 1-indexed ↔ Lean 0-indexed). -/
+\end{lstlisting}
+We enforce this tagging discipline with a small project-specific linter, 
+alongside Mathlib's standard tooling~\cite{The_mathlib_Community_2020} 
+(naming, docstrings, style, plus \texttt{shake} for unused imports), 
+ensuring that violations surface mechanically.
+
+Engineering tax cannot be eliminated, but its location can be chosen.
+We encapsulate it in independent modules so the mathematical layer
+interacts with them strictly through clean APIs. This applies Parnas's
+information-hiding principle~\cite{Parnas1972} to formalization: each
+module hides one engineering concern from the mathematical layer. The
+core of this effort is a small Foundation layer of bundled structures,
+each encapsulating a paper-side mathematical object as a Lean
+type~\cite{Baanen_2022, commelin2023abstractionboundariesspecdriven, pittphilsci13482}.
+The layer introduces \texttt{Vertex}, \texttt{ActiveSet},
+\texttt{Digraph}, \texttt{OrthogonalHessenberg},
+\texttt{UnreducedAngles}, and others---allowing each structure to absorb the
+corresponding combination of hypotheses just once. Three further modules
+(\texttt{Singleton.Fin}, \texttt{EntryAccess},
+\texttt{PartialProduct}) are factored out by thematic content.
+
+Such structural refactors involve large-scale cascades---the largest spanned
+$12$ files and roughly $232$ call sites---where the design judgment is
+made by humans and the execution is carried out by AI. To illustrate the impact, consider the Bridge theorem signature before the 
+structural pass:
+\begin{lstlisting}
+theorem digraph_model (hn : 2 ≤ n) (θ : Fin (n - 1) → ℝ)
+    (hunred : ∀ k, Real.sin (θ k) ≠ 0) :
+    ∀ i j : Fin n,
+      givensProduct θ i j ≠ 0 ↔ Arc n (activeSet θ) (i.val + 1) (j.val + 1)
+\end{lstlisting}
+After the structural pass:
+\begin{lstlisting}
+theorem digraph_model (hn : 2 ≤ n) (θ : UnreducedAngles n) :
+    θ.product.supportDigraph = θ.activeSet.digraph
+\end{lstlisting}
+The engineering tax has not disappeared; it simply now lives within the Foundation
+modules. Consequently, the formal Bridge theorem reads exactly as the 
+natural-language paper sentence.
+
+\medskip
+\noindent\textbf{Prompt example --- abstraction design.}
+\begin{quote}\itshape\small
+Scan all uses of \texttt{Fin n} that represent paper-side vertices.
+Report the count of anonymous-mk constructions, the count of
+$0$-indexed-to-$1$-indexed translations, and the most common usage
+patterns. From the data, propose a \texttt{Vertex n} structure with
+constructors, comparison, neighbouring, and a round-trip API to
+\texttt{Fin n}. Output the design only.
+\end{quote}
+
+%\subsection{Letting mathematics speak}\label{ssec:speak}
+
+Once the engineering tax is isolated, the mathematical layer can carry
+semantics directly: names become clear mathematical statements, symbols
+match the paper, and the main theorem signature reads as a literal
+translation of its natural-language counterpart.
+
+For naming, we apply a simple heuristic: read the name aloud and check
+whether it forms a complete mathematical thought. A name that fails
+this test usually signals that the declaration's role has not been fully
+resolved---it may be too specific, too abstract, or in the wrong place. 
+For instance, \texttt{extended\_diag\_isPlusMinusOne} fails because it 
+leaves the subject ambiguous; revised to 
+\texttt{boundaryAppended\_diag\_isPlusMinusOne}, it forms a clear sentence. 
+This test serves both human and AI readability. Placeholder names like 
+\texttt{aux\_lemma\_3} leave the AI with no semantic basis for judgment in 
+search and completion, whereas a name that encodes its own statement exposes 
+the underlying mathematics directly to the model.
+
+We use the form of the main theorem itself as the project's completion 
+criterion: when the apex signature reads exactly as the paper sentence, 
+the work is done. A green build is necessary, but not sufficient. Consider the apex theorem immediately after proof completion, before the 
+engineering tax has been extracted:
+\begin{lstlisting}
+theorem classification {n : ℕ} (hn : 2 ≤ n) :
+    (∀ S : Finset ℕ, ValidS n S → ∃ θ : Fin (n-1) → ℝ,
+        (∀ k, Real.sin (θ k) ≠ 0) ∧ activeSet θ = S) ∧
+    (∀ θ : Fin (n-1) → ℝ, (∀ k, Real.sin (θ k) ≠ 0) →
+        ∀ i j : Fin n, givensProduct θ i j ≠ 0 ↔
+          Arc n (activeSet θ) (i.val + 1) (j.val + 1)) ∧
+    (∀ S S' : Finset ℕ, ValidS n S → ValidS n S' →
+        2 ≤ S.card → 2 ≤ S'.card → DigraphIso n S S' → S = S')
+\end{lstlisting}
+Here, engineering overhead sits alongside mathematical content in the
+signature, forcing the reader to mentally filter it out. The code is 
+mathematically verified, but it has not assumed responsibility for legibility. Contrast this with the signature after the structural pass:
+\begin{lstlisting}
+theorem classification {n : ℕ} (hn : 2 ≤ n) :
+    (∀ S : ActiveSet n, ∃ θ : UnreducedAngles n, θ.activeSet = S) ∧
+    (∀ θ : UnreducedAngles n, θ.product.supportDigraph = θ.activeSet.digraph) ∧
+    (∀ S S' : ActiveSet n, 2 ≤ S.elements.card → 2 ≤ S'.elements.card →
+        S.digraph ≅ S'.digraph → S = S') :=
+  ⟨completeness, digraph_model hn, fun S S' => rigid S S' hn⟩
+\end{lstlisting}
+Every conceptual object in the signature is now packaged inside its own
+structure. The entire declaration reads as a direct translation of
+Theorem~\ref{thm:classification}: for $n \ge 2$, every active set
+arises from some unreduced angle vector; the support digraph of the
+Givens product equals the one given by the active set; and for
+$|S|, |S'| \ge 2$, digraph isomorphism implies $S = S'$.
+
+Both signatures encode identical mathematical content; the difference
+lies entirely in whether the code assumes responsibility for its own legibility. 
+Only when the formal development is treated as the primary mathematical 
+artifact can this standard be posed and met.
+
+\medskip
+\noindent\textbf{Prompt example---naming review.}
+\begin{quote}\itshape\small
+Apply the natural-language reading test to every helper in this file.
+For each name that fails, identify the failure mode (missing subject,
+placeholder word, unexpanded abbreviation) and propose a revised name
+that states what the object is, what it is built from, and what
+property it has. Report the rename list; confirm before implementing.
+\end{quote}

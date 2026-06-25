@@ -1,0 +1,102 @@
+% !TEX root = ../main_hessenberg.tex
+\begin{comment}
+\section{Compression as evidence of content}\label{sec:compression}
+
+The criteria of \S\ref{sec:methodology} are internal: a green build,
+and an apex signature that reads as the paper sentence. Both are
+judgments the authors pass on their own artifact. This section adds
+an external one. Aksenov, Bodnia, Freedman, and
+Mulligan~\cite{aksenov2026compressionneedmodelingmathematics} take
+compression as the measurable difference between mathematics and
+mere formal text, and calibrate this on Mathlib: unfolding genuine
+mathematics expands the source by many orders of magnitude, which
+formal text restating its premises does not. We state their measure,
+compute it for our development, and report where the development
+lands.
+
+\begin{definition}[Compression metrics,
+{\cite[\S3]{aksenov2026compressionneedmodelingmathematics}}]\label{def:abfm}
+\leanmarginLean{Util.Compression}{Util/Compression.lean}
+Let $G$ be the directed graph whose vertices are the declarations of
+a Lean development plus a synthetic vertex $\mathsf{Sort}$, with an
+edge $u \to v$ of weight $w$ when the elaborated term of $u$ refers
+to $v$ exactly $w$ times; declarations of the Lean core library and
+$\mathsf{Sort}$ are \emph{primitive}. The \emph{wrapped length} of
+$u$ is the number of tokens in its Lean source. Its \emph{unwrapped
+length} is $|u|_G = \sum_i w_i \, |v_i|_G$ over the edges
+$u \to v_i$, with $|u|_G = 1$ for primitives. Its \emph{depth} is
+the length of the longest path in $G$ from $u$ to a primitive.
+\end{definition}
+
+Wrapped length is the cost of stating $u$ with the whole library at
+hand; unwrapped length is the cost of stating it from primitives
+alone. The ratio between the two measures the compression that the
+intervening definitions buy, and depth counts how many layers of
+definitions that compression is spread across.
+
+We compute the three quantities for the thirteen public targets of
+\texttt{HessenbergDigraphs} with a program written in Lean itself,
+invoked as \texttt{lake exe hessenberg-compression}. The program is a
+transcription of Definition~\ref{def:abfm}: it loads the compiled
+library at runtime, collects the weighted reference multiset of each
+elaborated term by structural recursion over the term (the
+\texttt{collectElems} traversal of Aksenov et al.\ \S3.1), and evaluates
+$|u|_G$ and depth by memoised recursion over $G$. Working inside Lean
+gives the program the elaborated terms exactly as the kernel checked
+them, rather than a reconstruction from printed output. Three
+implementation choices on points that their description leaves
+open (the tokenizer behind wrapped length, the references of
+declarations that have a type but no term, such as inductive types
+and their recursors, and cycle handling) are documented in the
+source. The results appear in Table~\ref{tab:compression}.
+
+\begin{table}[ht]
+\centering
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Declaration} & \textbf{Wrapped} & \textbf{Unwrapped} & \textbf{Depth} \\
+\midrule
+\texttt{classification}              &     93 & $2.39 \times 10^{44}$ & 138 \\
+\texttt{completeness}                &     61 & $2.38 \times 10^{44}$ & 137 \\
+\texttt{digraph\_model}              &    123 & $4.95 \times 10^{41}$ & 114 \\
+\texttt{exists\_givensFactorization} &    368 & $2.81 \times 10^{47}$ & 147 \\
+\texttt{rigid}                       &  1\,201 & $2.44 \times 10^{12}$ &  28 \\
+\texttt{singleton\_iso}              &    139 & $2.05 \times 10^{11}$ &  24 \\
+\texttt{singleton\_iso\_unique}      &  1\,052 & $1.83 \times 10^{12}$ &  28 \\
+\texttt{loopless\_iff}               &    566 & $1.01 \times 10^{8}$  &  21 \\
+\texttt{count\_formula}              &     67 & $4.30 \times 10^{9}$  &  21 \\
+\texttt{count\_loopless\_formula}    &     97 & $193\,677$            &   4 \\
+\texttt{Arc}                         &     75 & $8$                   &   2 \\
+\texttt{activeSet}                   &    100 & $1.01 \times 10^{37}$ & 101 \\
+\texttt{givensProduct}               &     51 & $1.35 \times 10^{37}$ & 102 \\
+\bottomrule
+\end{tabular}
+\caption{Compression metrics (wrapped, unwrapped, depth) of
+Definition~\ref{def:abfm} for the thirteen public targets of
+\texttt{HessenbergDigraphs}, computed by
+\texttt{lake exe hessenberg-compression}.}
+\label{tab:compression}
+\end{table}
+
+The four apex-level theorems and the foundation definition
+\texttt{activeSet} have unwrapped lengths between $10^{37}$ and
+$10^{47}$ and depths above $100$. This crosses the threshold by which
+Aksenov et al.\ separate genuine hierarchical compression from mere
+syntactic restatement, placing the project within the substantive-content
+region of Mathlib: below their reported maximum of $10^{104}$, but
+unambiguously inside the compression regime. The two enumeration
+formulae and the singleton isomorphism sit in the
+$10^{8}$--$10^{12}$ range at depths $20$--$28$, corresponding to
+proofs that form a structural-lemma chain built on top of arithmetic
+identities. \texttt{count\_loopless\_formula} is the smallest
+target, at depth $4$ and unwrapped length $193\,677$: the proof is a
+single closed-form arithmetic identity, which the metric reads off
+directly.
+
+This answers the question that the choice of a marshmallow invites:
+a deliberately elementary problem has not left the artifact empty.
+The internal criterion of \S\ref{sec:methodology} says the code reads
+as mathematics; the measurement here says the case study of
+\S\ref{sec:example} measures as mathematics.
+\end{comment}

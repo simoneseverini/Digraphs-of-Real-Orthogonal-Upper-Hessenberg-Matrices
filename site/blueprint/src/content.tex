@@ -1,0 +1,206 @@
+\chapter{Setup and definitions}
+
+We work with $n \times n$ real matrices ($n \ge 2$), indexed by
+$[n] = \{1, 2, \dots, n\}$ throughout. The five definitions below set up
+both the matrix-side object of study (orthogonal upper Hessenberg
+matrices), its combinatorial shadow (the support digraph), and the two
+parameterisations (Givens factorisation, active set) that allow the
+matrix and combinatorial sides to be compared.
+
+\begin{definition}\label{def:OH}
+  \lean{HessenbergDigraphs.OrthogonalHessenberg}
+  \leanok
+  A matrix $Q \in \mathbb{R}^{n\times n}$ is \emph{upper Hessenberg} if
+  $Q_{ij} = 0$ whenever $j+1 < i$, and \emph{orthogonal} if
+  $Q^\top Q = I$. We write $\mathcal H_n$ for the set of orthogonal
+  upper Hessenberg matrices in $\mathbb{R}^{n\times n}$.
+\end{definition}
+
+\begin{definition}\label{def:supp}
+  \lean{HessenbergDigraphs.OrthogonalHessenberg.supportDigraph}
+  \leanok
+  \uses{def:OH}
+  The \emph{support digraph} of $Q$, denoted $D(Q)$, is the directed
+  graph on $[n]$ with an arc $i \to j$ whenever $Q_{ij} \ne 0$. The
+  classification problem is to describe, up to digraph isomorphism, the
+  set $\{D(Q) : Q \in \mathcal H_n\}$.
+\end{definition}
+
+\begin{definition}\label{def:sign}
+  \lean{Matrix.SignEquiv}
+  \leanok
+  Two matrices $Q, Q' \in \mathbb{R}^{n\times n}$ are \emph{sign-equivalent},
+  written $Q \simeq_{\mathrm{sign}} Q'$, if $Q' = D_L Q D_R$ for some
+  diagonal matrices $D_L, D_R$ with entries in $\{\pm 1\}$.
+  Sign-equivalent matrices have identical zero / non-zero patterns, so
+  $D(Q) = D(Q')$.
+\end{definition}
+
+\begin{definition}\label{def:givens}
+  \lean{Matrix.givensRotation, Matrix.givensProduct}
+  \leanok
+  For $k \in \{0,\dots,n-2\}$ and $\theta \in \mathbb{R}$, the \emph{Givens
+  rotation} $G_k(\theta) \in \mathbb{R}^{n\times n}$ is the identity with the
+  $2\times 2$ block at rows / columns $(k, k+1)$ replaced by
+  $\bigl[\begin{smallmatrix}\cos\theta & -\sin\theta\\ \sin\theta & \cos\theta\end{smallmatrix}\bigr]$.
+  The \emph{ordered Givens product} of an angle vector
+  $\theta = (\theta_0, \dots, \theta_{n-2})$ is
+  $Q_n(\theta) := G_0(\theta_0) G_1(\theta_1) \cdots G_{n-2}(\theta_{n-2})$.
+  An angle vector is called \emph{unreduced} if every $\sin\theta_k$
+  is non-zero; we write $\Theta_n$ for the set of such vectors.
+\end{definition}
+
+\begin{definition}\label{def:active}
+  \lean{HessenbergDigraphs.ActiveSet, HessenbergDigraphs.Arc}
+  \leanok
+  \uses{def:givens}
+  For $\theta \in \Theta_n$, the \emph{active set} is
+  $S(\theta) := \{ k \in [n-1] : \cos\theta_{k-1} \ne 0\}$.
+  For any $S \subseteq [n-1]$, set
+  $R(S) := \{1\} \cup \{k+1 : k \in S\}$ and $C(S) := S \cup \{n\}$,
+  and define $D_n(S)$ on $[n]$ to have arcs $j+1 \to j$ for
+  $1 \le j \le n-1$ (\emph{spine}) plus $i \to j$ whenever
+  $i \in R(S)$, $j \in C(S)$, $i \le j$ (\emph{overlay}).
+\end{definition}
+
+\chapter{Main theorems}
+
+The classification of support digraphs of unreduced real orthogonal
+upper Hessenberg matrices is the conjunction of four formal statements:
+a universality result on the matrix side, a bridge that identifies the
+matrix support with the combinatorial digraph, a rigidity result on the
+combinatorial side, and the apex theorem assembling the three.
+
+\begin{theorem}[Universality]\label{thm:univ}
+  \lean{HessenbergDigraphs.OrthogonalHessenberg.exists_givensFactorization}
+  \leanok
+  \uses{def:OH, def:givens, def:sign}
+  Every unreduced $Q \in \mathcal H_n$ is sign-equivalent to a canonical
+  Givens product: there exists $\theta \in \Theta_n$ with
+  $Q \simeq_{\mathrm{sign}} Q_n(\theta)$.
+\end{theorem}
+\begin{proof}\proves{thm:univ}\leanok\uses{def:OH, def:givens, def:sign}
+  Induction on $n$. Right-multiply $Q$ by the transpose of a Givens
+  factor chosen to clear the last row to $e_n^\top$; orthogonality
+  forces the last column to $e_n$ as well, so the principal
+  $(n{-}1) \times (n{-}1)$ corner is itself orthogonal upper Hessenberg,
+  and the induction hypothesis applies. The accumulated sign
+  discrepancies along the inductive peel-off are absorbed into the
+  diagonal $D_L, D_R$ of the sign-equivalence relation.
+\end{proof}
+
+Universality reduces every unreduced $Q$ to the canonical form
+$Q_n(\theta)$ up to sign. The next step is to read the support pattern
+of $Q_n(\theta)$ off the active set $S(\theta)$ in a purely
+combinatorial way.
+
+\begin{theorem}[Bridge]\label{thm:bridge}
+  \lean{HessenbergDigraphs.digraph_model}
+  \leanok
+  \uses{def:supp, def:givens, def:active}
+  For every $\theta \in \Theta_n$, the matrix support agrees with the
+  combinatorial digraph:
+  $D(Q_n(\theta)) = D_n(S(\theta))$.
+\end{theorem}
+\begin{proof}\proves{thm:bridge}\leanok\uses{def:supp, def:givens, def:active}
+  Two inclusions, both stated entry-wise on $Q_n(\theta)_{ij}$. The
+  subdiagonal entries are $\sin\theta_j \ne 0$ by the unreduced
+  hypothesis, exhibiting all spine arcs. For an upper-triangular entry
+  $i \le j$, a row / column-vanishing analysis on the Givens product
+  shows that $Q_n(\theta)_{ij} \ne 0$ iff $\cos\theta_{i-1} \ne 0$ and
+  $\cos\theta_j \ne 0$, which by definition of $S(\theta)$ is exactly
+  the overlay condition $i \in R(S(\theta))$, $j \in C(S(\theta))$.
+\end{proof}
+
+The bridge transports the classification problem from matrices to
+combinatorics: $D(Q)$ is determined by the active set $S \subseteq [n-1]$.
+The combinatorial side is now governed by the rigidity of the
+$D_n(S)$ family.
+
+\begin{theorem}[Rigidity]\label{thm:rigid}
+  \lean{HessenbergDigraphs.rigid}
+  \leanok
+  \uses{def:active}
+  Let $S, S' \subseteq [n-1]$ with $|S|, |S'| \ge 2$. If
+  $D_n(S) \cong D_n(S')$ as digraphs, then $S = S'$.
+\end{theorem}
+\begin{proof}\proves{thm:rigid}\leanok\uses{def:active}
+  The key combinatorial fact is the \emph{cut lemma}: in $D_n(S)$, the
+  only arc from $\{k{+}1, \dots, n\}$ to $\{1, \dots, k\}$ is the
+  spine arc $k{+}1 \to k$. This forces every isomorphism to fix the
+  unique directed Hamilton cycle
+  $1 \to n \to n{-}1 \to \cdots \to 2 \to 1$. A pigeonhole argument on
+  the cut, combined with degree analysis at the maximum-in-degree
+  vertex (which is $n$ when $|S| \ge 2$), forces the isomorphism to
+  fix $n$, after which a downward induction along the cycle forces the
+  identity. The case $|S| = 1$ is the only failure: the cyclic rotation
+  $\rho^t$ exhibits $D_n(\{t\}) \cong D_n(\{n - t\})$, with no further
+  coincidences.
+\end{proof}
+
+The three results above plug together as follows.
+
+\begin{theorem}[Classification]\label{thm:class}
+  \lean{HessenbergDigraphs.classification}
+  \leanok
+  \uses{thm:univ, thm:bridge, thm:rigid}
+  Fix $n \ge 2$. The classification of support digraphs of unreduced
+  orthogonal upper Hessenberg matrices is the conjunction of
+  realisability (every $S \subseteq [n-1]$ arises as $S(\theta)$),
+  bridge ($D(Q_n(\theta)) = D_n(S(\theta))$), and rigidity
+  ($|S|,|S'| \ge 2$ and $D_n(S) \cong D_n(S')$ imply $S = S'$).
+\end{theorem}
+\begin{proof}\proves{thm:class}\leanok\uses{thm:univ, thm:bridge, thm:rigid}
+  Realisability is witnessed by the explicit angle choice
+  $\theta_k = \pi/4$ if $k+1 \in S$, $\theta_k = \pi/2$ otherwise; this
+  gives $\sin\theta_k \ne 0$ always and $\cos\theta_k \ne 0$ exactly on
+  $S$. Bridge is Theorem~\ref{thm:bridge}, applied pointwise. Rigidity
+  is Theorem~\ref{thm:rigid}. The Lean-side declaration is a one-line
+  term-level packaging of these three components.
+\end{proof}
+
+\chapter{Enumeration consequences}
+
+Combining rigidity with the singleton coincidence
+$D_n(\{t\}) \cong D_n(\{n-t\})$ yields a closed-form count of
+isomorphism classes. Both counts follow the same pattern: enumerate
+labelled configurations (subsets of $[n-1]$, or its loopless
+restriction to subsets of $\{2,\dots,n-2\}$ with no consecutive
+elements), then quotient by the singleton coincidence using rigidity to
+keep all $|S| \ge 2$ classes distinct.
+
+\begin{theorem}[Connected count]\label{thm:count}
+  \lean{HessenbergDigraphs.card_isoClasses_quot}
+  \leanok
+  \uses{thm:rigid}
+  For $n \ge 2$, the number of non-isomorphic weakly connected support
+  digraphs of $n \times n$ unreduced orthogonal upper Hessenberg
+  matrices is $N_n = 2^{n-1} - \lfloor (n-1)/2 \rfloor$.
+\end{theorem}
+\begin{proof}\proves{thm:count}\leanok\uses{thm:rigid}
+  Labelled configurations are subsets $S \subseteq [n-1]$, of which
+  there are $2^{n-1}$. Subsets with $|S| \ge 2$ are rigid
+  (Theorem~\ref{thm:rigid}), so each is its own isomorphism class. The
+  empty subset is rigid alone. The $|S| = 1$ subsets pair up under
+  $\{t, n-t\}$, contributing $\lceil(n-1)/2\rceil$ classes. The total
+  collapses to $2^{n-1} - \lfloor (n-1)/2 \rfloor$.
+\end{proof}
+
+\begin{theorem}[Loopless count]\label{thm:count_loopless}
+  \lean{HessenbergDigraphs.card_looplessClasses_quot}
+  \leanok
+  \uses{thm:rigid}
+  For $n \ge 3$, the number of non-isomorphic loopless connected
+  support digraphs is
+  $N_n^{\mathrm{loopless}} = F_{n-1} - \lfloor (n-3)/2 \rfloor$,
+  where $F_k$ is the $k$-th Fibonacci number.
+\end{theorem}
+\begin{proof}\proves{thm:count_loopless}\leanok\uses{thm:rigid}
+  The loopless condition forces $R(S) \cap C(S) = \emptyset$, which
+  translates to $S \subseteq \{2, \dots, n-2\}$ with no two consecutive
+  elements. The number of such subsets is the Fibonacci number
+  $F_{n-1}$ via the standard binary-strings bijection. The same
+  rigidity-plus-singleton-pairing argument as in Theorem~\ref{thm:count}
+  reduces this to $F_{n-1} - \lfloor (n-3)/2 \rfloor$ isomorphism
+  classes.
+\end{proof}

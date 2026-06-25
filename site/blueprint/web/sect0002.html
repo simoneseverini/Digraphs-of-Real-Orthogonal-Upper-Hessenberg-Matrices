@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Main theorems</title>
+<link rel="next" href="sect0003.html" title="Enumeration consequences" />
+<link rel="prev" href="sect0001.html" title="Setup and definitions" />
+<link rel="up" href="index.html" title="Digraphs of real orthogonal upper Hessenberg matrices" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/showmore.css" />
+<link rel="stylesheet" href="styles/blueprint.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">Digraphs of real orthogonal upper Hessenberg matrices</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Setup and definitions</span></a>
+ </li>
+<li class=" active current">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">Main theorems</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Enumeration consequences</span></a>
+ </li>
+<li ><a href="dep_graph_document.html">Dependency graph</a></li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000003">2 Main theorems</h1>
+<p>The classification of support digraphs of unreduced real orthogonal upper Hessenberg matrices is the conjunction of four formal statements: a universality result on the matrix side, a bridge that identifies the matrix support with the combinatorial digraph, a rigidity result on the combinatorial side, and the apex theorem assembling the three. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:univ">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">6</span>
+    <span class="theorem_thmtitle">Universality</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:univ">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000005"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0001.html#def:OH">Definition 1</a></li>
+          
+          <li><a href="sect0001.html#def:givens">Definition 4</a></li>
+          
+          <li><a href="sect0001.html#def:sign">Definition 3</a></li>
+          
+          <li><a href="sect0001.html#def:OH">Definition 1</a></li>
+          
+          <li><a href="sect0001.html#def:givens">Definition 4</a></li>
+          
+          <li><a href="sect0001.html#def:sign">Definition 3</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.OrthogonalHessenberg.exists_givensFactorization" class="lean_decl">HessenbergDigraphs.OrthogonalHessenberg.exists_givensFactorization</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   Every unreduced \(Q \in \mathcal H_n\) is sign-equivalent to a canonical Givens product: there exists \(\theta \in \Theta _n\) with \(Q \simeq _{\mathrm{sign}} Q_n(\theta )\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000005">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> Induction on \(n\). Right-multiply \(Q\) by the transpose of a Givens factor chosen to clear the last row to \(e_n^\top \); orthogonality forces the last column to \(e_n\) as well, so the principal \((n{-}1) \times (n{-}1)\) corner is itself orthogonal upper Hessenberg, and the induction hypothesis applies. The accumulated sign discrepancies along the inductive peel-off are absorbed into the diagonal \(D_L, D_R\) of the sign-equivalence relation. </p>
+
+  </div>
+</div>
+<p>Universality reduces every unreduced \(Q\) to the canonical form \(Q_n(\theta )\) up to sign. The next step is to read the support pattern of \(Q_n(\theta )\) off the active set \(S(\theta )\) in a purely combinatorial way. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:bridge">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">7</span>
+    <span class="theorem_thmtitle">Bridge</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:bridge">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000006"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0001.html#def:supp">Definition 2</a></li>
+          
+          <li><a href="sect0001.html#def:givens">Definition 4</a></li>
+          
+          <li><a href="sect0001.html#def:active">Definition 5</a></li>
+          
+          <li><a href="sect0001.html#def:supp">Definition 2</a></li>
+          
+          <li><a href="sect0001.html#def:givens">Definition 4</a></li>
+          
+          <li><a href="sect0001.html#def:active">Definition 5</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.digraph_model" class="lean_decl">HessenbergDigraphs.digraph_model</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   For every \(\theta \in \Theta _n\), the matrix support agrees with the combinatorial digraph: \(D(Q_n(\theta )) = D_n(S(\theta ))\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000006">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> Two inclusions, both stated entry-wise on \(Q_n(\theta )_{ij}\). The subdiagonal entries are \(\sin \theta _j \ne 0\) by the unreduced hypothesis, exhibiting all spine arcs. For an upper-triangular entry \(i \le j\), a row / column-vanishing analysis on the Givens product shows that \(Q_n(\theta )_{ij} \ne 0\) iff \(\cos \theta _{i-1} \ne 0\) and \(\cos \theta _j \ne 0\), which by definition of \(S(\theta )\) is exactly the overlay condition \(i \in R(S(\theta ))\), \(j \in C(S(\theta ))\). </p>
+
+  </div>
+</div>
+<p>The bridge transports the classification problem from matrices to combinatorics: \(D(Q)\) is determined by the active set \(S \subseteq [n-1]\). The combinatorial side is now governed by the rigidity of the \(D_n(S)\) family. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:rigid">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">8</span>
+    <span class="theorem_thmtitle">Rigidity</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:rigid">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000007"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0001.html#def:active">Definition 5</a></li>
+          
+          <li><a href="sect0001.html#def:active">Definition 5</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.rigid" class="lean_decl">HessenbergDigraphs.rigid</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   Let \(S, S' \subseteq [n-1]\) with \(|S|, |S'| \ge 2\). If \(D_n(S) \cong D_n(S')\) as digraphs, then \(S = S'\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000007">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> The key combinatorial fact is the <em>cut lemma</em>: in \(D_n(S)\), the only arc from \(\{ k{+}1, \dots , n\} \) to \(\{ 1, \dots , k\} \) is the spine arc \(k{+}1 \to k\). This forces every isomorphism to fix the unique directed Hamilton cycle \(1 \to n \to n{-}1 \to \cdots \to 2 \to 1\). A pigeonhole argument on the cut, combined with degree analysis at the maximum-in-degree vertex (which is \(n\) when \(|S| \ge 2\)), forces the isomorphism to fix \(n\), after which a downward induction along the cycle forces the identity. The case \(|S| = 1\) is the only failure: the cyclic rotation \(\rho ^t\) exhibits \(D_n(\{ t\} ) \cong D_n(\{ n - t\} )\), with no further coincidences. </p>
+
+  </div>
+</div>
+<p>The three results above plug together as follows. </p>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:class">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">9</span>
+    <span class="theorem_thmtitle">Classification</span>
+    <div class="thm_header_extras">
+
+    
+    ✓
+        </div>
+    <div class="thm_header_hidden_extras">
+
+    <a class="icon proof" href="sect0002.html#thm:class">#</a>
+    
+    <a class="icon proof" href="sect0002.html#a0000000008"><svg  class="icon icon-cogs "><use xlink:href="symbol-defs.svg#icon-cogs"></use></svg>
+</a>
+    
+    
+    <button class="modal"><svg  class="icon icon-mindmap "><use xlink:href="symbol-defs.svg#icon-mindmap"></use></svg>
+</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Uses</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="sect0002.html#thm:univ">Theorem 6</a></li>
+          
+          <li><a href="sect0002.html#thm:bridge">Theorem 7</a></li>
+          
+          <li><a href="sect0002.html#thm:rigid">Theorem 8</a></li>
+          
+          <li><a href="sect0002.html#thm:univ">Theorem 6</a></li>
+          
+          <li><a href="sect0002.html#thm:bridge">Theorem 7</a></li>
+          
+          <li><a href="sect0002.html#thm:rigid">Theorem 8</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+    
+    <button class="modal lean">L∃∀N</button>
+        <div class="modal-container">
+      <div class="modal-content">
+        <header>
+          <h1>Lean declarations</h1>
+          <button class="closebtn"><svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        </header>
+        
+        <ul class="uses">
+          
+          <li><a href="../../docs/find/#doc/HessenbergDigraphs.classification" class="lean_decl">HessenbergDigraphs.classification</a></li>
+          
+        </ul>
+    
+      </div>
+    </div>
+
+    
+        </div>
+  </div>
+  <div class="theorem_thmcontent">
+  <p>   Fix \(n \ge 2\). The classification of support digraphs of unreduced orthogonal upper Hessenberg matrices is the conjunction of realisability (every \(S \subseteq [n-1]\) arises as \(S(\theta )\)), bridge (\(D(Q_n(\theta )) = D_n(S(\theta ))\)), and rigidity (\(|S|,|S'| \ge 2\) and \(D_n(S) \cong D_n(S')\) imply \(S = S'\)). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000008">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">▶</span>
+  </div>
+  <div class="proof_content">
+  <p> Realisability is witnessed by the explicit angle choice \(\theta _k = \pi /4\) if \(k+1 \in S\), \(\theta _k = \pi /2\) otherwise; this gives \(\sin \theta _k \ne 0\) always and \(\cos \theta _k \ne 0\) exactly on \(S\). Bridge is Theorem&#160;<a href="sect0002.html#thm:bridge">7</a>, applied pointwise. Rigidity is Theorem&#160;<a href="sect0002.html#thm:rigid">8</a>. The Lean-side declaration is a one-line term-level packaging of these three components. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <svg  id="showmore-minus" class="icon icon-eye-minus showmore"><use xlink:href="symbol-defs.svg#icon-eye-minus"></use></svg>
+
+  <svg  id="showmore-plus" class="icon icon-eye-plus showmore"><use xlink:href="symbol-defs.svg#icon-eye-plus"></use></svg>
+
+  <a href="sect0001.html" title="Setup and definitions"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="Digraphs of real orthogonal upper Hessenberg matrices"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0003.html" title="Enumeration consequences"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+<script type="text/javascript" src="js/js.cookie.min.js"></script>
+<script type="text/javascript" src="js/showmore.js"></script>
+</body>
+</html>

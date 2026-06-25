@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dependency graph</title>
+  <meta name="generator" content="plasTeX" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles/theme-white.css" />
+  <link rel="stylesheet" href="styles/dep_graph.css" />
+  
+  <script type="text/x-mathjax-config">
+  
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  
+  </script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">  </script>
+
+
+<link rel="stylesheet" href="styles/extra_styles.css" />
+
+</head>
+
+<body>
+<header>
+  <a class="toc" href="index.html">Home</a>
+  <h1 id="doc_title">Dependencies</h1>
+</header>
+<div class="wrapper">
+<div class="content">
+  <div id="Legend">
+    <span id="legend_title" class="title">Legend
+    <div class="btn">
+       <div class="bar"></div>
+       <div class="bar"></div>
+       <div class="bar"></div>
+    </div></span> 
+    <dl class="legend">
+      
+      <dt>Boxes</dt><dd>definitions</dd>
+      
+      <dt>Ellipses</dt><dd>theorems and lemmas</dd>
+      
+      <dt>Blue border</dt><dd>the <em>statement</em> of this result is ready to be formalized; all prerequisites are done</dd>
+      
+      <dt>Orange border</dt><dd>the <em>statement</em> of this result is not ready to be formalized; the blueprint needs more work</dd>
+      
+      <dt>Blue background</dt><dd>the <em>proof</em> of this result is ready to be formalized; all prerequisites are done</dd>
+      
+      <dt>Green border</dt><dd>the <em>statement</em> of this result is formalized</dd>
+      
+      <dt>Green background</dt><dd>the <em>proof</em> of this result is formalized</dd>
+      
+      <dt>Dark green background</dt><dd>the <em>proof</em> of this result and all its ancestors are formalized</dd>
+      
+      <dt>Dark green border</dt><dd>this is in Mathlib</dd>
+      
+    </dl>
+  </div>
+    <div id="graph"></div>
+<div id="statements">
+
+    
+    <div class="dep-modal-container" id="def:active_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:active" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">5</span></div>
+    <div class="thm_thmcontent"><p>   For \(\theta \in \Theta _n\), the <em>active set</em> is \(S(\theta ) := \{  k \in [n-1] : \cos \theta _{k-1} \ne 0\} \). For any \(S \subseteq [n-1]\), set \(R(S) := \{ 1\}  \cup \{ k+1 : k \in S\} \) and \(C(S) := S \cup \{ n\} \), and define \(D_n(S)\) on \([n]\) to have arcs \(j+1 \to j\) for \(1 \le j \le n-1\) (<em>spine</em>) plus \(i \to j\) whenever \(i \in R(S)\), \(j \in C(S)\), \(i \le j\) (<em>overlay</em>). </p>
+</div>
+
+    <a class="latex_link" href="sect0001.html#def:active">LaTeX</a>
+    
+    
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+        
+           <li><a href="../../docs/find/#doc/HessenbergDigraphs.ActiveSet" class="lean_decl">HessenbergDigraphs.ActiveSet</a></li>
+        
+           <li><a href="../../docs/find/#doc/HessenbergDigraphs.Arc" class="lean_decl">HessenbergDigraphs.Arc</a></li>
+        
+      </ul>
+  </div>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:givens_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:givens" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">4</span></div>
+    <div class="thm_thmcontent"><p>  For \(k \in \{ 0,\dots ,n-2\} \) and \(\theta \in \mathbb {R}\), the <em>Givens rotation</em> \(G_k(\theta ) \in \mathbb {R}^{n\times n}\) is the identity with the \(2\times 2\) block at rows / columns \((k, k+1)\) replaced by \(\bigl[\begin{smallmatrix} \cos \theta 
+
+&  -\sin \theta 
+
+\\ \sin \theta 
+
+&  \cos \theta 
+
+\end{smallmatrix}\bigr]\). The <em>ordered Givens product</em> of an angle vector \(\theta = (\theta _0, \dots , \theta _{n-2})\) is \(Q_n(\theta ) := G_0(\theta _0) G_1(\theta _1) \cdots G_{n-2}(\theta _{n-2})\). An angle vector is called <em>unreduced</em> if every \(\sin \theta _k\) is non-zero; we write \(\Theta _n\) for the set of such vectors. </p>
+</div>
+
+    <a class="latex_link" href="sect0001.html#def:givens">LaTeX</a>
+    
+    
+  <div class="tooltip">
+      <span class="lean_link">Lean</span>
+      <ul class="tooltip_list">
+        
+           <li><a href="../../docs/find/#doc/Matrix.givensRotation" class="lean_decl">Matrix.givensRotation</a></li>
+        
+           <li><a href="../../docs/find/#doc/Matrix.givensProduct" class="lean_decl">Matrix.givensProduct</a></li>
+        
+      </ul>
+  </div>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:OH_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:OH" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">1</span></div>
+    <div class="thm_thmcontent"><p>  A matrix \(Q \in \mathbb {R}^{n\times n}\) is <em>upper Hessenberg</em> if \(Q_{ij} = 0\) whenever \(j+1 {\lt} i\), and <em>orthogonal</em> if \(Q^\top Q = I\). We write \(\mathcal H_n\) for the set of orthogonal upper Hessenberg matrices in \(\mathbb {R}^{n\times n}\). </p>
+</div>
+
+    <a class="latex_link" href="sect0001.html#def:OH">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.OrthogonalHessenberg">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:sign_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:sign" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">3</span></div>
+    <div class="thm_thmcontent"><p>  Two matrices \(Q, Q' \in \mathbb {R}^{n\times n}\) are <em>sign-equivalent</em>, written \(Q \simeq _{\mathrm{sign}} Q'\), if \(Q' = D_L Q D_R\) for some diagonal matrices \(D_L, D_R\) with entries in \(\{ \pm 1\} \). Sign-equivalent matrices have identical zero / non-zero patterns, so \(D(Q) = D(Q')\). </p>
+</div>
+
+    <a class="latex_link" href="sect0001.html#def:sign">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/Matrix.SignEquiv">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="def:supp_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="def:supp" style="display: none">
+    <div class="thm_thmheading">
+      <span class="definition_thmcaption">
+      Definition
+      </span>
+      <span class="definition_thmlabel">2</span></div>
+    <div class="thm_thmcontent"><p>   The <em>support digraph</em> of \(Q\), denoted \(D(Q)\), is the directed graph on \([n]\) with an arc \(i \to j\) whenever \(Q_{ij} \ne 0\). The classification problem is to describe, up to digraph isomorphism, the set \(\{ D(Q) : Q \in \mathcal H_n\} \). </p>
+</div>
+
+    <a class="latex_link" href="sect0001.html#def:supp">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.OrthogonalHessenberg.supportDigraph">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:bridge_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:bridge" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">7</span><span class="theorem_thmtitle">Bridge</span></div>
+    <div class="thm_thmcontent"><p>   For every \(\theta \in \Theta _n\), the matrix support agrees with the combinatorial digraph: \(D(Q_n(\theta )) = D_n(S(\theta ))\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:bridge">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.digraph_model">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:class_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:class" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">9</span><span class="theorem_thmtitle">Classification</span></div>
+    <div class="thm_thmcontent"><p>   Fix \(n \ge 2\). The classification of support digraphs of unreduced orthogonal upper Hessenberg matrices is the conjunction of realisability (every \(S \subseteq [n-1]\) arises as \(S(\theta )\)), bridge (\(D(Q_n(\theta )) = D_n(S(\theta ))\)), and rigidity (\(|S|,|S'| \ge 2\) and \(D_n(S) \cong D_n(S')\) imply \(S = S'\)). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:class">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.classification">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:count_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:count" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">10</span><span class="theorem_thmtitle">Connected count</span></div>
+    <div class="thm_thmcontent"><p>   For \(n \ge 2\), the number of non-isomorphic weakly connected support digraphs of \(n \times n\) unreduced orthogonal upper Hessenberg matrices is \(N_n = 2^{n-1} - \lfloor (n-1)/2 \rfloor \). </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#thm:count">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.card_isoClasses_quot">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:count_loopless_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:count_loopless" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">11</span><span class="theorem_thmtitle">Loopless count</span></div>
+    <div class="thm_thmcontent"><p>   For \(n \ge 3\), the number of non-isomorphic loopless connected support digraphs is \(N_n^{\mathrm{loopless}} = F_{n-1} - \lfloor (n-3)/2 \rfloor \), where \(F_k\) is the \(k\)-th Fibonacci number. </p>
+</div>
+
+    <a class="latex_link" href="sect0003.html#thm:count_loopless">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.card_looplessClasses_quot">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:rigid_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:rigid" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">8</span><span class="theorem_thmtitle">Rigidity</span></div>
+    <div class="thm_thmcontent"><p>   Let \(S, S' \subseteq [n-1]\) with \(|S|, |S'| \ge 2\). If \(D_n(S) \cong D_n(S')\) as digraphs, then \(S = S'\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:rigid">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.rigid">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+
+
+    
+    <div class="dep-modal-container" id="thm:univ_modal">
+      <div class="dep-modal-content">
+          <button class="dep-closebtn">
+<svg  class="icon icon-cross "><use xlink:href="symbol-defs.svg#icon-cross"></use></svg>
+</button>
+        
+  <div class="thm" id="thm:univ" style="display: none">
+    <div class="thm_thmheading">
+      <span class="theorem_thmcaption">
+      Theorem
+      </span>
+      <span class="theorem_thmlabel">6</span><span class="theorem_thmtitle">Universality</span></div>
+    <div class="thm_thmcontent"><p>   Every unreduced \(Q \in \mathcal H_n\) is sign-equivalent to a canonical Givens product: there exists \(\theta \in \Theta _n\) with \(Q \simeq _{\mathrm{sign}} Q_n(\theta )\). </p>
+</div>
+
+    <a class="latex_link" href="sect0002.html#thm:univ">LaTeX</a>
+    
+    
+  <a class="lean_link lean_decl" href="../../docs/find/#doc/HessenbergDigraphs.OrthogonalHessenberg.exists_givensFactorization">Lean</a>
+    
+    
+  
+    
+  </div>
+    
+      </div>
+    </div>
+</div>
+</div> <!-- content -->
+</div> <!-- wrapper -->
+<script src="js/jquery.min.js" type="text/javascript"></script>
+
+<script src="js/d3.min.js"></script>
+<script src="js/hpcc.min.js"></script>
+<script src="js/d3-graphviz.js"></script>
+
+<script type="text/javascript">
+const graphContainer = d3.select("#graph");
+const width = graphContainer.node().clientWidth;
+const height = graphContainer.node().clientHeight;
+
+
+graphContainer.graphviz({useWorker: true})
+    .width(width)
+    .height(height)
+    .fit(true)
+    .renderDot(`strict digraph "" {	graph [bgcolor=transparent];	node [label="\N",		penwidth=1.8	];	edge [arrowhead=vee];	"def:sign"	[color=green,		fillcolor="#B0ECA3",		label=sign,		shape=box,		style=filled];	"thm:univ"	[color=green,		fillcolor="#1CAC78",		label=univ,		shape=ellipse,		style=filled];	"def:sign" -> "thm:univ"	[style=dashed];	"thm:class"	[color=green,		fillcolor="#1CAC78",		label=class,		shape=ellipse,		style=filled];	"thm:univ" -> "thm:class"	[style=dashed];	"thm:bridge"	[color=green,		fillcolor="#1CAC78",		label=bridge,		shape=ellipse,		style=filled];	"thm:bridge" -> "thm:class"	[style=dashed];	"thm:rigid"	[color=green,		fillcolor="#1CAC78",		label=rigid,		shape=ellipse,		style=filled];	"thm:rigid" -> "thm:class"	[style=dashed];	"thm:count"	[color=green,		fillcolor="#1CAC78",		label=count,		shape=ellipse,		style=filled];	"thm:rigid" -> "thm:count"	[style=dashed];	"thm:count_loopless"	[color=green,		fillcolor="#1CAC78",		label=count_loopless,		shape=ellipse,		style=filled];	"thm:rigid" -> "thm:count_loopless"	[style=dashed];	"def:OH"	[color=green,		fillcolor="#B0ECA3",		label=OH,		shape=box,		style=filled];	"def:OH" -> "thm:univ"	[style=dashed];	"def:supp"	[color=green,		fillcolor="#B0ECA3",		label=supp,		shape=box,		style=filled];	"def:OH" -> "def:supp"	[style=dashed];	"def:supp" -> "thm:bridge"	[style=dashed];	"def:givens"	[color=green,		fillcolor="#B0ECA3",		label=givens,		shape=box,		style=filled];	"def:givens" -> "thm:univ"	[style=dashed];	"def:active"	[color=green,		fillcolor="#B0ECA3",		label=active,		shape=box,		style=filled];	"def:givens" -> "def:active"	[style=dashed];	"def:active" -> "thm:bridge"	[style=dashed];	"def:active" -> "thm:rigid"	[style=dashed];}`)
+    .on("end", interactive);
+
+latexLabelEscaper = function(label) {
+  return label.replace(/\./g, '\\.').replace(/:/g, '\\:')
+}
+
+clickNode = function() {
+  $("#statements div").hide()
+  var node_id = $('text', this).text();
+  $('.thm').hide();
+  $('#'+latexLabelEscaper(node_id)).show().children().show();
+}
+function interactive() {
+    $("span#legend_title").on("click", function () {
+           $(this).siblings('dl').toggle();
+        })
+
+    d3.selectAll('.node')
+        .attr('pointer-events', 'fill')
+        .on('click', function () {
+           var title = d3.select(this).selectAll('title').text().trim();
+           $('#statements > div').hide()
+           $('.thm').hide();
+           $('#'+latexLabelEscaper(title)+'_modal').show().children().show().children().show();
+           $('#statements').show()
+        });
+
+    d3.selectAll('.dep-closebtn').on('click', function() {
+        var modal =
+            d3.select(this).node().parentNode.parentNode.parentNode ;
+        d3.select(modal).style('display', 'none');
+    });
+}
+
+</script>
+
+</body>
+</html>

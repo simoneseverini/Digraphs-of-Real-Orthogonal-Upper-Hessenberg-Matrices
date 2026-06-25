@@ -1,0 +1,45 @@
+# Lean 4 build artifacts
+lean/build/
+lean/.lake/
+site/verso/.lake/
+site/verso/_out/
+*.olean
+*.ilean
+*.trace
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.pdf
+# ...but the rendered final paper is intentionally kept in the repo:
+!paper/main_hessenberg.pdf
+
+# Stray LaTeX artifacts at repo root (from misfired pdflatex runs)
+/*.aux
+/*.log
+/*.out
+/*.toc
+/texput.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / agent state
+.claude/
+.vscode/
+
+# plastex / leanblueprint intermediates (regenerated each build)
+site/blueprint/src/*.paux
+site/blueprint/lean_decls
+
+# We DO commit the rendered HTML so Vercel can serve it:
+#   site/verso/_site/        ← Verso static output
+#   site/blueprint/web/      ← Blueprint static output
+#   site/docs/               ← doc-gen4 subset (HessenbergDigraphs only)

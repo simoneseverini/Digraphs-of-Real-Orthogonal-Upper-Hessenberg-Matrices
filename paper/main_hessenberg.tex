@@ -1,0 +1,277 @@
+% !TEX root = main_hessenberg.tex
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage{placeins}
+\usetikzlibrary{matrix,backgrounds,fit,positioning,arrows.meta,calc}
+
+% --- Schmitt-style human/AI attribution (for appendix) ---
+\usepackage[normalem]{ulem}
+\usepackage[breakable,skins]{tcolorbox}
+
+\definecolor{humancolor}{RGB}{0, 102, 204}
+\definecolor{aicolor}{RGB}{180, 90, 50}
+
+\newlength{\marginbarwidth}
+\setlength{\marginbarwidth}{2pt}
+\newlength{\marginbarsep}
+\setlength{\marginbarsep}{6pt}
+
+\newtcolorbox{humanparagraph}{%
+  enhanced, breakable, blanker,
+  borderline west={\marginbarwidth}{-\marginbarsep}{humancolor},
+  left=0pt, right=0pt, top=2pt, bottom=2pt,
+  before skip=0.5\baselineskip, after skip=0.5\baselineskip,
+  overlay unbroken and first={
+    \node[humancolor, font=\tiny\scshape, rotate=90, anchor=north]
+      at ([xshift=-\marginbarsep-\marginbarwidth/2-12pt, yshift=-13pt]frame.north west) {Human};
+  }
+}
+
+\newtcolorbox{aiparagraph}{%
+  enhanced, breakable, blanker,
+  borderline west={\marginbarwidth}{-\marginbarsep}{aicolor},
+  left=0pt, right=0pt, top=2pt, bottom=2pt,
+  before skip=0.5\baselineskip, after skip=0.5\baselineskip,
+  overlay unbroken and first={
+    \node[aicolor, font=\tiny\scshape, rotate=90, anchor=north]
+      at ([xshift=-\marginbarsep-\marginbarwidth/2-12pt, yshift=-5pt]frame.north west) {AI};
+  }
+}
+
+% --- Typography ---
+\newcommand{\defeq}{\coloneqq}
+
+% --- Code listing style ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.95}
+\definecolor{kwblue}{RGB}{0,112,192}
+\definecolor{typorange}{RGB}{180,90,50}
+
+\lstdefinelanguage{Lean}{
+  morekeywords={
+    import, open, namespace, end, section, variable, universe,
+    theorem, lemma, def, abbrev, instance, structure, class, example,
+    axiom, opaque, mutual, where, noncomputable, set_option,
+    fun, let, have, show, by, do, match, with, if, then, else,
+    return, in, from, inductive
+  },
+  morekeywords=[2]{
+    set, obtain, refine, exact, apply, intro, intros, rintro, rcases,
+    induction, cases, constructor, calc, simp, ring, linarith, omega,
+    rfl, decide, trivial, sorry, admit, push_cast, norm_num, positivity,
+    field_simp, ext, by_contra, rw, rewrite, change, subst, unfold,
+    assumption, dsimp, simp_all
+  },
+  morekeywords=[3]{
+    True, False, And, Or, Not, Eq, Iff, Prop, Type, Sort,
+    forall, exists, Fin, Nat, Real, Matrix, Finset, Equiv, Perm, List, Bool
+  },
+  sensitive=true,
+  morecomment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  morestring=[b]"
+}
+\definecolor{leankw}{HTML}{0033B3}      % top-level keywords (blue)
+\definecolor{leantactic}{HTML}{8B008B}  % tactics (purple)
+\definecolor{leanbuiltin}{HTML}{1F7A6F} % built-in / Prop / forall (teal)
+\definecolor{leancomment}{HTML}{6A737D} % comments (gray)
+\definecolor{leanstring}{HTML}{C41A16}  % strings (red)
+\lstset{
+  language=Lean,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\color{leankw}\bfseries,
+  keywordstyle=[2]\color{leantactic},
+  keywordstyle=[3]\color{leanbuiltin},
+  commentstyle=\color{leancomment}\itshape,
+  stringstyle=\color{leanstring},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  framesep=4pt,
+  rulecolor=\color{black!30},
+  showstringspaces=false,
+  aboveskip=6pt,
+  belowskip=6pt,
+  extendedchars=true,
+  inputencoding=utf8,
+  literate=
+    {->}{{$\to$}}1
+    {=>}{{$\Rightarrow$}}1
+    {<->}{{$\leftrightarrow$}}1
+    {!=}{{$\neq$}}1
+    {<=}{{$\le$}}1
+    {>=}{{$\ge$}}1
+    {/\\}{{$\wedge$}}1
+    {\\/}{{$\vee$}}1
+    {forall}{{$\forall$}}1
+    {exists}{{$\exists$}}1
+    {lambda}{{$\lambda$}}1
+    {=~=}{{$\cong$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {≤}{{$\le$}}1
+    {≥}{{$\ge$}}1
+    {≠}{{$\neq$}}1
+    {≅}{{$\cong$}}1
+    {→}{{$\to$}}1
+    {⇒}{{$\Rightarrow$}}1
+    {↔}{{$\leftrightarrow$}}1
+    {↦}{{$\mapsto$}}1
+    {∧}{{$\wedge$}}1
+    {∨}{{$\vee$}}1
+    {¬}{{$\neg$}}1
+    {θ}{{$\theta$}}1
+    {α}{{$\alpha$}}1
+    {β}{{$\beta$}}1
+    {γ}{{$\gamma$}}1
+    {δ}{{$\delta$}}1
+    {ε}{{$\varepsilon$}}1
+    {σ}{{$\sigma$}}1
+    {φ}{{$\varphi$}}1
+    {ψ}{{$\psi$}}1
+    {ω}{{$\omega$}}1
+    {Γ}{{$\Gamma$}}1
+    {Δ}{{$\Delta$}}1
+    {Σ}{{$\Sigma$}}1
+    {Π}{{$\Pi$}}1
+    {ℕ}{{$\mathbb{N}$}}1
+    {ℝ}{{$\mathbb{R}$}}1
+    {ℤ}{{$\mathbb{Z}$}}1
+    {ℚ}{{$\mathbb{Q}$}}1
+    {ℂ}{{$\mathbb{C}$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1
+    {⊢}{{$\vdash$}}1
+    {⊕}{{$\oplus$}}1
+    {⊗}{{$\otimes$}}1
+    {∘}{{$\circ$}}1
+    {∈}{{$\in$}}1
+    {∉}{{$\not\in$}}1
+    {⊆}{{$\subseteq$}}1
+    {∪}{{$\cup$}}1
+    {∩}{{$\cap$}}1
+    {∅}{{$\emptyset$}}1
+}
+
+% --- Hyperlinks ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor={blue!70!black},
+    citecolor={blue!70!black},
+    urlcolor={blue!70!black},
+    pdfborder={0 0 0},
+}
+
+% --- Theorem numbering ---
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- Macros ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Id}{I}
+\newcommand{\Ind}{\mathbf{1}}
+
+
+\title{Marshmallow formalization by prompt design}
+\author{
+ Xinze Li\thanks{Department of Mathematics, University of Toronto}
+ \and
+ Simone Severini\thanks{Department of Computer Science,
+  UCL, and Google Cloud}
+}
+\date{\today}
+
+% Lean-link macros (comb-arg style): green checkmark + clickable declaration name.
+%   \lean{decl\_name}{File/Path.lean}        -- inline tag
+%   \leanmargin{decl\_name}{File/Path.lean}  -- right-flushed [✓ name] after theorem/def label
+\newcommand{\leanrepo}{https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices/blob/main/lean/HessenbergDigraphs}
+\definecolor{leangreen}{HTML}{006400}
+\newcommand{\lean}[2]{{\normalfont\color{leangreen}%
+  \ensuremath{\checkmark}\,\href{\leanrepo/#2}{\texttt{#1}}}}
+\newcommand{\leanmargin}[2]{%
+  \nopagebreak\hfill{\normalfont\small\color{leangreen}%
+    [\ensuremath{\checkmark}\,\href{\leanrepo/#2}{\texttt{#1}}]}\par\nopagebreak
+}
+\newcommand{\leanmargintwo}[4]{%
+  \nopagebreak\hfill{\normalfont\small\color{leangreen}%
+    [\ensuremath{\checkmark}\,\href{\leanrepo/#2}{\texttt{#1}},
+     \ensuremath{\checkmark}\,\href{\leanrepo/#4}{\texttt{#3}}]}\par\nopagebreak
+}
+% \leanmarginLean: like \leanmargin but path is relative to lean/ (the
+% lake package root), not lean/HessenbergDigraphs/. Used for the
+% project's tooling under lean/Util/.
+\newcommand{\leanrepoLean}{https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices/blob/main/lean}
+\newcommand{\leanmarginLean}[2]{%
+  \nopagebreak\hfill{\normalfont\small\color{leangreen}%
+    [\ensuremath{\checkmark}\,\href{\leanrepoLean/#2}{\texttt{#1}}]}\par\nopagebreak
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+%As AI-assisted Lean formalizations emerge where authors write no code, the human role increasingly shifts toward prompt design and mathematical judgment. In this paradigm, treating the code as the primary artifact requires some methodological discipline. We present a protocol \textcolor{red}{ (“protocol” too strong for a case study?)} that isolates non-mathematical engineering tax from the core content, ensuring formal theorem signatures read exactly as their corresponding paper sentences \textcolor{red}{(We actually trying to make the paper fits the code, rather than make the code fit the paper)}. For a community adapting to AI assistants, this work reminds us of a principle: compilation is not necessarily completion. We validate this approach through a complete, publicly available Lean 4 case study in combinatorial matrix theory.
+
+%\textcolor{red}{\textbf{New Version: }
+
+As AI-assisted Lean formalizations emerge where authors write little or no code, the human role shifts toward prompt design and mathematical judgment. In this paradigm, treating code as the primary mathematical artifact requires some methodological discipline: the standards we hold code to as software (readability, naming, structural discipline) must carry over to it as mathematics. We present an approach with two aims: non-mathematical engineering overhead is separated out so it can be managed on its own, and the prose serves only as an interface to the formal development, which carries the mathematics itself. We validate it through a complete, publicly available Lean 4 case study in combinatorial matrix theory.
+
+
+%Given a real orthogonal upper Hessenberg matrix $Q \in \mathbb{R}^{n \times n}$,
+%we study its support digraph $D(Q)$ on the vertex set $[n]$, where an arc
+%$i \to j$ exists if and only if $Q_{ij} \neq 0$. Using a canonical factorization
+%into adjacent Givens rotations, we derive an explicit closed form for the matrix
+%entries, which precisely determines their zero--nonzero pattern. We show that
+%$D(Q)$ is weakly connected if and only if $Q$ is unreduced, and in this case
+%the digraph is strongly connected, contains a unique directed Hamilton cycle,
+%and is completely parameterized by a subset $S \subseteq [n-1]$. By analyzing
+%exact vertex degrees and directed distances, we prove that these digraphs
+%possess a trivial automorphism group whenever $|S| \ge 2$. This structural
+%rigidity enables us to exactly enumerate the isomorphism classes, showing
+%there are precisely $2^{n-1} - \lfloor \frac{n-1}{2} \rfloor$ non-isomorphic
+%connected support digraphs on $n$ vertices. Finally, we classify the loopless
+%connected support digraphs, establishing a bijection with integer subsets
+%lacking consecutive elements, and prove they are enumerated by
+%$F_{n-1} - \lfloor \frac{n-3}{2} %\rfloor$, where $F_k$ is the $k$-th
+%Fibonacci number.
+
+%All results have been completely formalized and machine-verified in the Lean~4 proof assistant, building on the Mathlib library. The entire development compiles with zero \texttt{sorry} and depends only on Lean~4's standard axioms. The formalization was carried out semi-autonomously by an AI agent system, with human-guided strategy for the most challenging proofs.
+\end{abstract}
+
+%{\small\tableofcontents}
+
+% =====================================================================
+\input{sections/sec-introduction}
+\input{sections/sec-formalization}
+\input{sections/sec-results}
+
+\appendix
+\input{sections/sec-compression}
+\input{sections/sec-appendix-stats}
+
+% =====================================================================
+\bibliographystyle{alpha}
+\bibliography{references}
+
+\end{document}

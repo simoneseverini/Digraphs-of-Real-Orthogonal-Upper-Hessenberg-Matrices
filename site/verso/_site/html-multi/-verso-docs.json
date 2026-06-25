@@ -1,0 +1,153 @@
+{"91":
+ "<code>HessenbergDigraphs.card_looplessClasses {n : ℕ} (hn : 3 ≤ n) (hfib : n - 3 + 1 ≤ Nat.fib (n - 1)) :\n  (Finset.image isoInvariant {S | IsLooplessSet S}).card = Nat.fib (n - 1) - (n - 3) / 2</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The number of loopless isomorphism classes of `D_n(S)` is\n`fib(n-1) - ⌊(n-3)/2⌋`. Paper: Theorem 15. The `fib` lower bound `hfib` is the\nsame side condition carried by `count_loopless_formula`. </code>",
+ "90":
+ "<code>HessenbergDigraphs.looplessIsoSetoid (n : ℕ) : Setoid { S // IsLooplessSet S }</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Loopless active sets up to support-digraph isomorphism. </code>",
+ "9":
+ "<code>HessenbergDigraphs.Vertex (n : ℕ) : Type</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A vertex of the digraph `D_n`: a natural number `value` with\n`1 ≤ value ≤ n` (paper-side 1-indexed). </code>",
+ "89":
+ "<code>Nat.fib (n : ℕ) : ℕ</code><span class=\"sep\"></span><code class=\"docstring\">Implementation of the Fibonacci sequence satisfying\n`fib 0 = 0, fib 1 = 1, fib (n + 2) = fib n + fib (n + 1)`.\n\n*Note:* We use a stream iterator for better performance when compared to the naive recursive\nimplementation.\n</code>",
+ "88":
+ "<code>HAdd.hAdd.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HAdd α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a + b` computes the sum of `a` and `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `+` in identifiers is `add`.</code>",
+ "87": "<code>n - 3 + 1 ≤ Nat.fib (n - 1)</code>",
+ "86": "<code>3 ≤ n</code>",
+ "85":
+ "<code>HessenbergDigraphs.card_looplessClasses_quot {n : ℕ} (hn : 3 ≤ n) (hfib : n - 3 + 1 ≤ Nat.fib (n - 1)) :\n  Nat.card (Quotient (looplessIsoSetoid n)) = Nat.fib (n - 1) - (n - 3) / 2</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The number of isomorphism classes of the loopless support digraphs\n`D_n(S)` is `fib(n-1) - ⌊(n-3)/2⌋`. Paper: Theorem 15. The readable form of\n`card_looplessClasses`. </code>",
+ "84":
+ "<code>HessenbergDigraphs.isoInvariant {n : ℕ} (S : ActiveSet n) : ℕ ⊕ ActiveSet n</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A complete isomorphism invariant of `D_n(S)`: singletons map to\n`min t (n - t)` (their iso class `{t, n - t}`), everything else maps to `S`. </code>",
+ "83":
+ "<code>HessenbergDigraphs.card_isoClasses {n : ℕ} (hn : 2 ≤ n) :\n  (Finset.image isoInvariant Finset.univ).card = 2 ^ (n - 1) - (n - 1) / 2</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The number of isomorphism classes of `D_n(S)` (the distinct values\nof the complete invariant `isoInvariant`) is `2^(n-1) - ⌊(n-1)/2⌋`. Paper:\nTheorem 12. </code>",
+ "82": "<code>List ℕ</code>",
+ "81":
+ "<code>HDiv.hDiv.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HDiv α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a / b` computes the result of dividing `a` by `b`.\nThe meaning of this notation is type-dependent.\n* For most types like `Nat`, `Int`, `Rat`, `Real`, `a / 0` is defined to be `0`.\n* For `Nat`, `a / b` rounds downwards.\n* For `Int`, `a / b` rounds downwards if `b` is positive or upwards if `b` is negative.\n  It is implemented as `Int.ediv`, the unique function satisfying\n  `a % b + b * (a / b) = a` and `0 ≤ a % b &lt; natAbs b` for `b ≠ 0`.\n  Other rounding conventions are available using the functions\n  `Int.fdiv` (floor rounding) and `Int.tdiv` (truncation rounding).\n* For `Float`, `a / 0` follows the IEEE 754 semantics for division,\n  usually resulting in `inf` or `nan`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `/` in identifiers is `div`.</code>",
+ "80":
+ "<code>HPow.hPow.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HPow α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a ^ b` computes `a` to the power of `b`.\nThe meaning of this notation is type-dependent. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `^` in identifiers is `pow`.</code>",
+ "8":
+ "<code>HessenbergDigraphs.Digraph (n : ℕ) : Type</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A directed graph on `Vertex n`: a binary arc relation. </code>",
+ "79":
+ "<code>HessenbergDigraphs.isoSetoid (n : ℕ) : Setoid (ActiveSet n)</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Active sets up to support-digraph isomorphism: `S ≈ S'` iff\n`D_n(S) ≅ D_n(S')`. </code>",
+ "78":
+ "<code>Quotient.{u} {α : Sort u} (s : Setoid α) : Sort u</code><span class=\"sep\"></span><code class=\"docstring\">Quotient types coarsen the propositional equality for a type so that terms related by some\nequivalence relation are considered equal. The equivalence relation is given by an instance of\n`Setoid`.\n\nSet-theoretically, `Quotient s` can seen as the set of equivalence classes of `α` modulo the\n`Setoid` instance's relation `s.r`. Functions from `Quotient s` must prove that they respect `s.r`:\nto define a function `f : Quotient s → β`, it is necessary to provide `f' : α → β` and prove that\nfor all `x : α` and `y : α`, `s.r x y → f' x = f' y`. `Quotient.lift` implements this operation.\n\nThe key quotient operators are:\n * `Quotient.mk` places elements of the underlying type `α` into the quotient.\n * `Quotient.lift` allows the definition of functions from the quotient to some other type.\n * `Quotient.sound` asserts the equality of elements related by `r`\n * `Quotient.ind` is used to write proofs about quotients by assuming that all elements are\n   constructed with `Quotient.mk`.\n\n`Quotient` is built on top of the primitive quotient type `Quot`, which does not require a proof\nthat the relation is an equivalence relation. `Quotient` should be used instead of `Quot` for\nrelations that actually are equivalence relations.\n</code>",
+ "77":
+ "<code>Nat.card.{u_3} (α : Type u_3) : ℕ</code><span class=\"sep\"></span><code class=\"docstring\">`Nat.card α` is the cardinality of `α` as a natural number.\nIf `α` is infinite, `Nat.card α = 0`. </code>",
+ "76":
+ "<code>HessenbergDigraphs.card_isoClasses_quot {n : ℕ} (hn : 2 ≤ n) :\n  Nat.card (Quotient (isoSetoid n)) = 2 ^ (n - 1) - (n - 1) / 2</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The number of isomorphism classes of the support digraphs `D_n(S)`,\n`S ⊆ [n-1]`, is `2^(n-1) - ⌊(n-1)/2⌋`. Paper: Theorem 12. The readable form of\n`card_isoClasses`: the quotient of active sets by digraph isomorphism has\nexactly that many elements (`isoInvariant` is a complete invariant, so it\ndescends to an injection into its image). </code>",
+ "75":
+ "<code>HessenbergDigraphs.completeness {n : ℕ} (S : ActiveSet n) : ∃ θ, θ.activeSet = S</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Realizability (Foundation API form): every `S : ActiveSet n` is\n`θ.activeSet` for some `θ : UnreducedAngles n`. </code>",
+ "74":
+ "<code>HessenbergDigraphs.ActiveSet.card {n : ℕ} (S : ActiveSet n) : ℕ</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The cardinality of the active set. </code>",
+ "73":
+ "<code>And (a b : Prop) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">`And a b`, or `a ∧ b`, is the conjunction of propositions. It can be\nconstructed and destructed like a pair: if `ha : a` and `hb : b` then\n`⟨ha, hb⟩ : a ∧ b`, and if `h : a ∧ b` then `h.left : a` and `h.right : b`.\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∧` in identifiers is `and`.\n\n * The recommended spelling of `/\\` in identifiers is `and` (prefer `∧` over `/\\`).</code>",
+ "72":
+ "<code>HessenbergDigraphs.classification {n : ℕ} (hn : 2 ≤ n) :\n  (∀ (S : ActiveSet n), ∃ θ, θ.activeSet = S) ∧\n    (∀ (θ : UnreducedAngles n), θ.product.supportDigraph = θ.activeSet.digraph) ∧\n      ∀ (S S' : ActiveSet n), 2 ≤ S.card → 2 ≤ S'.card → S.digraph.isIsomorphicTo S'.digraph → S = S'</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The three classification theorems packaged as one triple. Adds no\nmathematical content beyond `completeness`, `digraph_model`, and `rigid`\n— this declaration exists so the project has a single Lean-side name to\ncite the paper's Theorem 1. </code>",
+ "71":
+ "<code>HessenbergDigraphs.example_D5_S13 : UnreducedAngles 5</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The bundled `UnreducedAngles 5` for the `D_5({1, 3})` example. </code>",
+ "70":
+ "<code>HessenbergDigraphs.Digraph.isIsomorphicTo {n : ℕ} (D D' : Digraph n) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** `D` and `D'` are isomorphic: there exists a Mathlib `RelIso` between\nthem. The constructive form `D ≃r D'` carries the bijection as data;\nthis `Nonempty` form is the existential matching paper's `D ≅ D'`. </code>",
+ "7": "<code>OrthogonalHessenberg n</code>",
+ "69": "<code>S.digraph.isIsomorphicTo S'.digraph</code>",
+ "68": "<code>2 ≤ S'.elements.card</code>",
+ "67":
+ "<code>Finset.card.{u_1} {α : Type u_1} (s : Finset α) : ℕ</code><span class=\"sep\"></span><code class=\"docstring\">`s.card` is the number of elements of `s`, aka its cardinality.\n\nThe notation `#s` can be accessed in the `Finset` locale. </code>",
+ "66":
+ "<code>HessenbergDigraphs.ActiveSet.elements {n : ℕ} (self : ActiveSet n) : Finset (Vertex (n - 1))</code>",
+ "65": "<code>2 ≤ S.elements.card</code>",
+ "64":
+ "<code>HessenbergDigraphs.rigid {n : ℕ} (S S' : ActiveSet n) (hn : 2 ≤ n) (hcard : 2 ≤ S.elements.card)\n  (hcard' : 2 ≤ S'.elements.card) (hiso : S.digraph.isIsomorphicTo S'.digraph) : S = S'</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Rigidity: if `|S|, |S'| ≥ 2`, then `S.digraph ≅ S'.digraph` forces\n`S = S'`. </code>",
+ "63":
+ "<code>HessenbergDigraphs.example_D5_S2 : UnreducedAngles 5</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The bundled `UnreducedAngles 5` for the `D_5({2})` example. </code>",
+ "62":
+ "<code>HessenbergDigraphs.ActiveSet.digraph {n : ℕ} (S : ActiveSet n) : Digraph n</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The paper's arc relation `D_n(S)` as a `Digraph n`. </code>",
+ "61":
+ "<code>HessenbergDigraphs.UnreducedAngles.activeSet {n : ℕ} (θ : UnreducedAngles n) : ActiveSet n</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The paper-side active set `S(θ) = {k ∈ [n - 1] : cos(θ_k) ≠ 0}`. </code>",
+ "60":
+ "<code>Eq.{u_1} {α : Sort u_1} : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The equality relation. It has one introduction rule, `Eq.refl`.\nWe use `a = b` as notation for `Eq a b`.\nA fundamental property of equality is that it is an equivalence relation.\n```\nvariable (α : Type) (a b c d : α)\nvariable (hab : a = b) (hcb : c = b) (hcd : c = d)\n\nexample : a = d :=\n  Eq.trans (Eq.trans hab (Eq.symm hcb)) hcd\n```\nEquality is much more than an equivalence relation, however. It has the important property that every assertion\nrespects the equivalence, in the sense that we can substitute equal expressions without changing the truth value.\nThat is, given `h1 : a = b` and `h2 : p a`, we can construct a proof for `p b` using substitution: `Eq.subst h1 h2`.\nExample:\n```\nexample (α : Type) (a b : α) (p : α → Prop)\n        (h1 : a = b) (h2 : p a) : p b :=\n  Eq.subst h1 h2\n\nexample (α : Type) (a b : α) (p : α → Prop)\n    (h1 : a = b) (h2 : p a) : p b :=\n  h1 ▸ h2\n```\nThe triangle in the second presentation is a macro built on top of `Eq.subst` and `Eq.symm`, and you can enter it by typing `\\t`.\nFor more information: [Equality](https://lean-lang.org/theorem_proving_in_lean4/quantifiers_and_equality.html#equality)\n\n\nConventions for notations in identifiers:\n\n * The recommended spelling of `=` in identifiers is `eq`.</code>",
+ "6":
+ "<code>HessenbergDigraphs.OrthogonalHessenberg.supportDigraph {n : ℕ} (Q : OrthogonalHessenberg n) : Digraph n</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The support digraph of `Q : OrthogonalHessenberg n`: the binary\nrelation on `Vertex n` saying \"entry `(i, j)` of `Q` is non-zero\". </code>",
+ "59":
+ "<code>HessenbergDigraphs.digraph_model {n : ℕ} (hn : 2 ≤ n) (θ : UnreducedAngles n) :\n  θ.product.supportDigraph = θ.activeSet.digraph</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Bridge theorem (Foundation API form, equality form): the support\ndigraph of `θ.product` equals `θ.activeSet.digraph` as `Digraph n`s. </code>",
+ "58":
+ "<code>HessenbergDigraphs.UnreducedAngles.product {n : ℕ} (θ : UnreducedAngles n) : OrthogonalHessenberg n</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The canonical Givens product as an `OrthogonalHessenberg n`. </code>",
+ "57":
+ "<code>HessenbergDigraphs.OrthogonalHessenberg.signEquivTo {n : ℕ} (Q Q' : OrthogonalHessenberg n) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Two `OrthogonalHessenberg n` matrices are sign-equivalent if their\nunderlying `Matrix` representations are sign-equivalent. </code>",
+ "56": "<code>UnreducedAngles n</code>",
+ "55":
+ "<code>HessenbergDigraphs.OrthogonalHessenberg.IsUnreduced {n : ℕ} (Q : OrthogonalHessenberg n) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A bundled `OrthogonalHessenberg n` is unreduced iff every spine entry\n`Q.apply (j.next h) j` is non-zero. </code>",
+ "54": "<code>Q.IsUnreduced</code>",
+ "53": "<code>2 ≤ n</code>",
+ "52":
+ "<code>HessenbergDigraphs.OrthogonalHessenberg.exists_givensFactorization {n : ℕ} (hn : 2 ≤ n) (Q : OrthogonalHessenberg n)\n  (hu : Q.IsUnreduced) : ∃ θ, Q ≃sign θ.product</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Foundation-API form (Severini Lemma 1 + paper Theorem 1): every\nunreduced `OrthogonalHessenberg n` is sign-equivalent to the canonical\nGivens product of some `UnreducedAngles n`. </code>",
+ "51":
+ "<code>HessenbergDigraphs.UnreducedAngles (n : ℕ) : Type</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A paper-side unreduced angle vector: `n - 1` real angles indexed by\n`Vertex (n - 1)`, together with the unreduced condition that every sine\nis non-zero. </code>",
+ "50":
+ "<code>HessenbergDigraphs.example_D6_S24 : UnreducedAngles 6</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The bundled `UnreducedAngles 6` for the `D_6({2, 4})` example. </code>",
+ "5":
+ "<code>HessenbergDigraphs.OrthogonalHessenberg.mk {n : ℕ} (matrix : Matrix (Fin n) (Fin n) ℝ)\n  (orthogonal : matrix.IsOrthogonal) (hessenberg : matrix.IsUpperHessenberg) : OrthogonalHessenberg n</code>",
+ "49":
+ "<code>LE.le.{u} {α : Type u} [self : LE α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-equal relation: `x ≤ y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `≤` in identifiers is `le`.\n\n * The recommended spelling of `&lt;=` in identifiers is `le` (prefer `≤` over `&lt;=`).</code>",
+ "48": "<code>j ∈ S.activeCols</code>",
+ "47":
+ "<code>Membership.mem.{u, v} {α : outParam (Type u)} {γ : Type v} [self : Membership α γ] : γ → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The membership relation `a ∈ s : Prop` where `a : α`, `s : γ`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `∈` in identifiers is `mem`.</code>",
+ "46": "<code>i ∈ S.activeRows</code>",
+ "45":
+ "<code>LT.lt.{u} {α : Type u} [self : LT α] : α → α → Prop</code><span class=\"sep\"></span><code class=\"docstring\">The less-than relation: `x &lt; y` \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `&lt;` in identifiers is `lt`.</code>",
+ "44":
+ "<code>HessenbergDigraphs.ActiveSet.activeCols {n : ℕ} (S : ActiveSet n) : Finset (Vertex n)</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Paper-side `activeCols(S) = S ∪ {n}`. The `n` contribution requires\n`1 ≤ n` (otherwise vacuous). </code>",
+ "43":
+ "<code>HessenbergDigraphs.ActiveSet.activeRows {n : ℕ} (S : ActiveSet n) : Finset (Vertex n)</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Paper-side `activeRows(S) = {1} ∪ {k + 1 | k ∈ S}`. The `1`\ncontribution requires `1 ≤ n` (otherwise vacuous). </code>",
+ "42": "<code>i ≤ j</code>",
+ "41": "<code>j ∈ ActiveSet.activeCols ?m.29</code>",
+ "40": "<code>i ∈ ActiveSet.activeRows ?m.29</code>",
+ "4":
+ "<code>Fin (n : ℕ) : Type</code><span class=\"sep\"></span><code class=\"docstring\">Natural numbers less than some upper bound.\n\nIn particular, a `Fin n` is a natural number `i` with the constraint that `i &lt; n`. It is the\ncanonical type with `n` elements.\n</code>",
+ "39":
+ "<code>HessenbergDigraphs.Arc.overlay {n : ℕ} {S : ActiveSet n} (i j : Vertex n) (hi : i ∈ S.activeRows)\n  (hj : j ∈ S.activeCols) (hij : i ≤ j) : Arc S i j</code>",
+ "38":
+ "<code>HessenbergDigraphs.Vertex.value {n : ℕ} (self : Vertex n) : ℕ</code>",
+ "37": "<code>Vertex n</code>",
+ "36": "<code>j.value &lt; n</code>",
+ "35": "<code>j.value &lt; ?m.19</code>",
+ "34":
+ "<code>HessenbergDigraphs.Vertex.next {n : ℕ} (v : Vertex n) (h : v.value &lt; n) : Vertex n</code><span class=\"sep\"></span><code class=\"docstring\">**Eng.** The next vertex `v + 1`. Requires `v.value &lt; n` (i.e. `v` is not the\nlast vertex). </code>",
+ "33": "<code>Vertex ?m.19</code>",
+ "32": "<code>j.value &lt; ?m.9</code>",
+ "31": "<code>Vertex ?m.9</code>",
+ "30":
+ "<code>HessenbergDigraphs.Arc.spine {n : ℕ} {S : ActiveSet n} (j : Vertex n) (h : j.value &lt; n) : Arc S (j.next h) j</code>",
+ "3":
+ "<code class=\"docstring\">A type universe. `Type ≡ Type 0`, `Type u ≡ Sort (u + 1)`. </code>",
+ "29": "<code>ActiveSet n</code>",
+ "28":
+ "<code>HessenbergDigraphs.ActiveSet.mk {n : ℕ} (elements : Finset (Vertex (n - 1))) : ActiveSet n</code>",
+ "27":
+ "<code>Finset.{u_4} (α : Type u_4) : Type u_4</code><span class=\"sep\"></span><code class=\"docstring\">`Finset α` is the type of finite sets of elements of `α`. It is implemented\nas a multiset (a list up to permutation) which has no duplicate elements. </code>",
+ "26":
+ "<code>HessenbergDigraphs.Arc {n : ℕ} (S : ActiveSet n) : Vertex n → Vertex n → Prop</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Arc relation for `D_n(S)` (Paper: Theorem 7).\n\n* `Arc.spine j h` — the spine arc `j.next h → j` for `h : j.value &lt; n`.\n* `Arc.overlay i j hi hj hij` — an overlay arc `i → j` whenever\n  `i ∈ S.activeRows`, `j ∈ S.activeCols`, and `i ≤ j`. </code>",
+ "25":
+ "<code>HessenbergDigraphs.ActiveSet (n : ℕ) : Type</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A paper-side active set: `S ⊆ {1, …, n - 1}`, encoded as a `Finset`\nof `Vertex (n - 1)` so the bound is type-level. </code>",
+ "24": "<code>Fin (n - 1) → ℝ</code>",
+ "23": "<code>Type u_6</code>",
+ "22": "<code>Type u_5</code>",
+ "21": "<code>ℝ</code>",
+ "20":
+ "<code>HSub.hSub.{u, v, w} {α : Type u} {β : Type v} {γ : outParam (Type w)} [self : HSub α β γ] : α → β → γ</code><span class=\"sep\"></span><code class=\"docstring\">`a - b` computes the difference of `a` and `b`.\nThe meaning of this notation is type-dependent.\n* For natural numbers, this operator saturates at 0: `a - b = 0` when `a ≤ b`. \n\nConventions for notations in identifiers:\n\n * The recommended spelling of `-` in identifiers is `sub` (when used as a binary operator).</code>",
+ "2":
+ "<code>Nat : Type</code><span class=\"sep\"></span><code class=\"docstring\">The natural numbers, starting at zero.\n\nThis type is special-cased by both the kernel and the compiler, and overridden with an efficient\nimplementation. Both use a fast arbitrary-precision arithmetic library (usually\n[GMP](https://gmplib.org/)); at runtime, `Nat` values that are sufficiently small are unboxed.\n</code>",
+ "19": "<code>Fin (n - 1)</code>",
+ "18":
+ "<code>Matrix.givensProduct {n : ℕ} (θ : Fin (n - 1) → ℝ) : Matrix (Fin n) (Fin n) ℝ</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The canonical ordered Givens product\n`G_0(θ_0) · G_1(θ_1) · ⋯ · G_{n-2}(θ_{n-2})`. </code>",
+ "17":
+ "<code>Matrix.givensRotation (n : ℕ) (k : Fin (n - 1)) (θ : ℝ) : Matrix (Fin n) (Fin n) ℝ</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** The Givens rotation in the `(k, k + 1)` plane with angle `θ`: the identity\nmatrix with the `2 × 2` block at rows/columns `k, k + 1` replaced by the planar\nrotation `[[cos θ, -sin θ], [sin θ, cos θ]]`.\n\nThe dimension `n` is taken explicitly because the relevant `n` is rarely\ninferable from the type of `k` alone in downstream uses (the `θ` argument may\nbe defined via a `Fin (n-1) → ℝ` whose `n` ambiguity already triggered\nelaboration failures in earlier drafts of this API). </code>",
+ "16":
+ "<code class=\"docstring\">The universe of propositions. `Prop ≡ Sort 0`.\n\nEvery proposition is propositionally equal to either `True` or `False`. </code>",
+ "15":
+ "<code>Real : Type</code><span class=\"sep\"></span><code class=\"docstring\">The type `ℝ` of real numbers constructed as equivalence classes of Cauchy sequences of rational\nnumbers. </code>",
+ "14":
+ "<code>Matrix.{u, u', v} (m : Type u) (n : Type u') (α : Type v) : Type (max u u' v)</code><span class=\"sep\"></span><code class=\"docstring\">`Matrix m n R` is the type of matrices with entries in `R`, whose rows are indexed by `m`\nand whose columns are indexed by `n`. </code>",
+ "13": "<code>Matrix (Fin n) (Fin n) ℝ</code>",
+ "12":
+ "<code>Matrix.SignEquiv {n : ℕ} (Q Q' : Matrix (Fin n) (Fin n) ℝ) : Prop</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** Two `n × n` matrices `Q` and `Q'` are sign-equivalent if `Q' = D_L · Q · D_R`\nfor some pair of `±1`-diagonal matrices `D_L, D_R`. </code>",
+ "11": "<code>?m.2</code>",
+ "10": "<code>?m.1</code>",
+ "1": "<code>ℕ</code>",
+ "0":
+ "<code>HessenbergDigraphs.OrthogonalHessenberg (n : ℕ) : Type</code><span class=\"sep\"></span><code class=\"docstring\">**Math.** A real `n × n` orthogonal upper Hessenberg matrix: bundles the\nunderlying matrix together with the orthogonality and Hessenberg\nproofs. Index type is `Fin n` (for Mathlib matrix-algebra\ncompatibility); use `Q.apply` for vertex-indexed entry access. </code>"}
