@@ -353,7 +353,8 @@ story.append(Paragraph(
 story.append(Spacer(1, 20))
 story.append(HRFlowable(width="60%", thickness=0.5, color=HexColor('#999999'), spaceAfter=8))
 story.append(Paragraph(
-    "<i>Project repository: hessenberg-digraphs | Author: Simone Severini (Google, UCL)</i>",
+    "<i>Project repository: hessenberg-digraphs | "
+    "Author: Simone Severini (University College London)</i>",
     ParagraphStyle('Footer', parent=styles['Normal'], fontSize=8, alignment=TA_CENTER,
                    textColor=HexColor('#888888'))))
 
