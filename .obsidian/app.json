@@ -1,0 +1,13 @@
+{
+  "userIgnoreFilters": [
+    "bibliography/",
+    "tools/",
+    "lean/",
+    "site/",
+    "paper/",
+    "README.md",
+    "FRONTIER.md"
+  ],
+  "newFileLocation": "folder",
+  "newFileFolderPath": "HessenbergHypergraph"
+}

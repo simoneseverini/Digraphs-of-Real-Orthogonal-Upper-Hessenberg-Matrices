@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: If you refer to this network, please cite it as below.
+title: Digraphs of real orthogonal upper Hessenberg matrices
+abstract: >-
+  Which directed graphs arise as the zero / non-zero pattern of an unreduced
+  real orthogonal upper Hessenberg matrix. Every such matrix is a product of
+  adjacent Givens rotations up to signs, its support digraph is determined by
+  the active set S of angles with non-vanishing cosine, and S is recoverable
+  from the digraph whenever it has at least two elements — so the isomorphism
+  classes number 2^(n-1) - floor((n-1)/2), and the loopless ones
+  F_(n-1) - floor((n-3)/2). A pre-formalization network: the argument in
+  prose, with every statement it turns on as a separate addressable card and
+  the dependencies between those statements as edges, beside the Lean 4
+  library that formalizes it.
+type: dataset
+authors:
+  - given-names: Xinze
+    family-names: Li
+    alias: Xinze-Li-Moqian
+  - given-names: Simone
+    family-names: Severini
+license: CC-BY-4.0
+repository-code: https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices
+keywords:
+  - hessenberg-matrices
+  - orthogonal-matrices
+  - digraphs
+  - givens-rotations
+  - enumeration
+  - lean4
+date-released: '2026-08-02'

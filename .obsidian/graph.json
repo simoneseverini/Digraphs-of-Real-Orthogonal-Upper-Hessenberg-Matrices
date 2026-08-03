@@ -1,0 +1,107 @@
+{
+  "collapse-filter": true,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "[\"type\":theorem]",
+      "color": {
+        "a": 1,
+        "rgb": 5025616
+      }
+    },
+    {
+      "query": "[\"type\":proposition]",
+      "color": {
+        "a": 1,
+        "rgb": 9315498
+      }
+    },
+    {
+      "query": "[\"type\":lemma]",
+      "color": {
+        "a": 1,
+        "rgb": 16750592
+      }
+    },
+    {
+      "query": "[\"type\":corollary]",
+      "color": {
+        "a": 1,
+        "rgb": 16761095
+      }
+    },
+    {
+      "query": "[\"type\":claim]",
+      "color": {
+        "a": 1,
+        "rgb": 16740419
+      }
+    },
+    {
+      "query": "[\"type\":remark]",
+      "color": {
+        "a": 1,
+        "rgb": 9479342
+      }
+    },
+    {
+      "query": "[\"type\":definition]",
+      "color": {
+        "a": 1,
+        "rgb": 48340
+      }
+    },
+    {
+      "query": "[\"kind\":uses]",
+      "color": {
+        "a": 1,
+        "rgb": 7697781
+      }
+    },
+    {
+      "query": "[\"kind\":depends]",
+      "color": {
+        "a": 1,
+        "rgb": 6056896
+      }
+    },
+    {
+      "query": "[\"kind\":references]",
+      "color": {
+        "a": 1,
+        "rgb": 12433259
+      }
+    },
+    {
+      "query": "[\"status\":debt]",
+      "color": {
+        "a": 1,
+        "rgb": 15022389
+      }
+    },
+    {
+      "query": "[\"status\":open]",
+      "color": {
+        "a": 1,
+        "rgb": 14162784
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.41432291666667,
+  "lineSizeMultiplier": 0.938572048611111,
+  "collapse-forces": true,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 250,
+  "scale": 0.7905009263835483,
+  "close": true
+}
