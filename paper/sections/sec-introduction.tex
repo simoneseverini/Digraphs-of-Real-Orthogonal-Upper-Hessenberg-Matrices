@@ -11,7 +11,12 @@ layer reaches only through clean interfaces. We enforce a naming
 discipline under which every declaration reads aloud as a mathematical
 statement. Under this arrangement the authors write no code, but they
 steer the formalization entirely through prompt design and
-mathematical judgment. The central principle is as follows: the code must read as mathematics.
+mathematical judgment. The central principle is as follows: 
+\begin{center}
+
+\emph{the code must read as mathematics.}
+
+\end{center}
 
 
 %{\color{red}
@@ -24,16 +29,13 @@ mathematical judgment. The central principle is as follows: the code must read a
 %AI tools produced every line of the formalization, including all optimization and refactoring work~\cite{ilin2026semiautonomousvml}. The authors' contribution was strictly confined to mathematical judgment exercised through prompt design. For the broader question of how human judgment integrates with AI in mathematical work, see~\cite{klowden2026mathematicalmethodshumanthought}. A complementary direction is semi-autonomous mathematical \emph{discovery}, in which AI systems generate and evaluate conjectures under human supervision~\cite{Feng2026SemiAutonomousMD}. Our project operates in the distinct regime of formalization rather than discovery. This inversion is a deliberate test of how far the methodology can be pushed. We make prompt design the primary object of methodological inquiry, since prompts serve as the sole human channel into the formal artifact.
 
 As a case study, we characterize the digraphs of real-orthogonal upper Hessenberg matrices. A \emph{marshmallow}, in Erd\H{o}s's sense, is a small result that offers a
-moment of intellectual reward but no deep mathematical consequences. As a case study, we characterize the digraphs of real-orthogonal upper 
-Hessenberg matrices. A \emph{marshmallow}, in Erd\H{o}s's sense, is a small 
-result that offers a moment of intellectual reward but no deep mathematical 
-consequences. The choice of problem here is driven by the second author's 
+moment of intellectual reward but no deep mathematical consequences. (The choice of problem here is driven by the second author's 
 curiosity, returning after twenty-five years to a problem from their 
-doctoral years~\cite{severini2003a} %, and by an honest assessment of their  mathematical strength (then and now). 
-However, nothing in the methodology depends on the problem being a marshmallow. If anything, keeping engineering tax out of the mathematical narrative matters more in a large formalization, since that is where the narrative is easiest to lose.
+doctoral years~\cite{severini2003a}, and by an honest assessment of their  mathematical strength, then and now.) 
+Nothing in the methodology discussed here depends on the problem being a marshmallow. If anything, keeping engineering tax out of the mathematical narrative matters more in a large formalization, since that is where the narrative is easiest to lose.
 
 Below, Section~\ref{sec:methodology} sets out the methodology, and Section~\ref{sec:example} presents the case study, with direct cross-references into the Lean development. %Appendix~\ref{sec:compression} applies a compression metric~\cite{aksenov2026compressionneedmodelingmathematics} to the resulting development as independent evidence that the formal artifact carries genuine mathematical content. 
-The full development is available \href{https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices}{on GitHub}, and every theorem and definition below carries a link into its source.
+The full development is available \href{https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices}{on GitHub}. Every theorem and definition below carries a link into its source.
 
 % The full classification theorem and its components are stated in
 % Section~\ref{sec:results} (Theorem~\ref{thm:classification}); the proof
