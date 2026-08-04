@@ -3,6 +3,7 @@
 <p align="center">
   <a href="https://digraph-kohl.vercel.app/"><img alt="Website" src="https://img.shields.io/badge/Website-digraph--kohl.vercel.app-2da44e?style=flat"></a>
   <img alt="Lean 4.28.0" src="https://img.shields.io/badge/Lean-4.28.0-blue?style=flat">
+  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs"><img alt="Network on astrolabe.network" src="https://img.shields.io/badge/Network-astrolabe.network-8fbcd8?style=flat"></a>
 </p>
 
 <p align="center">
@@ -15,7 +16,8 @@
 <p align="center">
   <a href="https://digraph-kohl.vercel.app/">Website</a> &nbsp;·&nbsp;
   <a href="https://digraph-kohl.vercel.app/verso/_site/html-multi/">Paper</a> &nbsp;·&nbsp;
-  <a href="https://digraph-kohl.vercel.app/blueprint/web/">Blueprint</a>
+  <a href="https://digraph-kohl.vercel.app/blueprint/web/">Blueprint</a> &nbsp;·&nbsp;
+  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs">Network</a>
 </p>
 
 <p align="center">
@@ -77,6 +79,21 @@ The calculator is layered: `Compute/` (verified enumeration backend),
 `Render.lean` (the widget data contract), and `Command.lean` (the
 `#hessenberg` / `#hessenberg_count` syntax).
 
+## The network
+
+The same mathematics also exists as a **pre-formalization network**: every
+statement is a card, every dependency an edge, and the chapters at the
+repository root are prose that embeds those cards where they are used. It is
+readable here as an Obsidian vault, and published at
+
+**https://www.astrolabe.network/writing/hessenberg-digraphs**
+
+where the cards carrying a `lean:` binding show the declaration that checks
+them — 293 declarations, no `sorry`, joined to the statements they formalize.
+
+It was built *after* the paper and the Lean, which is the point: the network
+can be shown beside the proof it precedes rather than in place of it.
+
 ## Project layout
 
 ```
@@ -106,6 +123,15 @@ The calculator is layered: `Compute/` (verified enumeration backend),
 │   └── lakefile.toml
 │
 ├── paper/                 LaTeX source for the paper
+│
+├── HessenbergHypergraph/  the pre-formalization network (Obsidian vault)
+│   ├── atoms/             one file per statement, filed by type
+│   ├── edges/             one file per edge (uses / depends / references)
+│   ├── assets/            figures, rendered from the paper's TikZ
+│   └── rules.md           what a card is and what an edge means
+├── 01-…, 02-…, 03-….md    the chapters that embed those cards
+├── bibliography/          one card per cited work
+├── tools/                 linters + FRONTIER.md generator
 │
 └── site/                  Deployable static site (Vercel-ready)
     ├── index.html         landing page
