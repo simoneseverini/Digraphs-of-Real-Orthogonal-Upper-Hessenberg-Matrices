@@ -200,3 +200,22 @@ python3 -m http.server 8000
 * The Lean code, paper website, blueprint, and API docs are all kept
   in sync; rebuild any of them and re-commit `site/` to redeploy.
 ```
+
+## Licence
+
+Two, because the repository carries two kinds of work and they are reused
+differently.
+
+| | Licence | File |
+|---|---|---|
+| `lean/` — the formalization | Apache-2.0 | [`lean/LICENSE`](lean/LICENSE) |
+| everything else — the hypergraph, the chapters, the paper, the figures | CC-BY-4.0 | [`LICENSE`](LICENSE) |
+
+Apache-2.0 for the library because that is what a Lean library is expected to
+be — it is Mathlib's licence, and a downstream project that imports from here
+should not have to check whether it may. CC-BY-4.0 for the network because
+the network is a document: what it asks of a reuser is attribution, not
+patent terms.
+
+Every `.lean` file names its own licence in its header. `CITATION.cff` is how
+to cite the network.
