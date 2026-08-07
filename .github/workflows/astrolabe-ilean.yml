@@ -1,0 +1,90 @@
+# Publish this project's `.ilean` files for astrolabe.network.
+#
+# `.ilean` is a JSON file `lake build` already writes beside each `.olean`, so
+# the language server can answer go-to-definition and find-references. It
+# records every constant a module mentions, that constant's defining module,
+# and the declaration each use sits inside — all resolved by the elaborator.
+#
+# Astrolabe draws this development's dependency graph. Without these files it
+# has to read the `.lean` sources as text, and on this project that goes wrong
+# in a specific way: of the 1106 edges it draws, 358 are not dependencies at
+# all. Reading the `.ilean` instead draws 811, of which 33 are spurious.
+#
+# Two things are the contract, and they are the last two steps: a release
+# tagged `astrolabe-ilean-<sha>`, carrying `ilean.tar.gz`. The site fetches the
+# artifact for the commit a submission pinned, or none — so what is published
+# cannot change because of an unrelated push.
+#
+# The build below mirrors `ci.yml`: same elan install, same cache, same
+# `working-directory: lean`, because the Lake project is not at the repository
+# root. It is a separate workflow rather than two more steps in `ci.yml` so
+# that nothing here can affect whether CI passes.
+name: astrolabe-ilean
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  # To attach the artifact to a release. Nothing else.
+  contents: write
+
+jobs:
+  ilean:
+    name: Publish .ilean for astrolabe.network
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: Cache Mathlib oleans
+        uses: actions/cache@v4
+        with:
+          path: lean/.lake/build
+          key: mathlib-olean-${{ hashFiles('lean/lake-manifest.json', 'lean/lean-toolchain') }}
+          restore-keys: |
+            mathlib-olean-
+
+      - name: Download Mathlib cache
+        run: lake exe cache get
+
+      - name: Build library
+        run: lake build
+
+      - name: Collect .ilean
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          # Everything under a `.lake/packages` is Mathlib or doc-gen4 and not
+          # this project. Pruned by path rather than by naming one directory,
+          # since the Lake project sits in `lean/` here.
+          find . -path '*/.lake/packages' -prune -o -name '*.ilean' -print0 > /tmp/ilean-list
+          count=$(tr -cd '\0' < /tmp/ilean-list | wc -c | tr -d ' ')
+          if [ "$count" = "0" ]; then
+            echo "::error::the build produced no .ilean files"
+            exit 1
+          fi
+          tar --null -czf ilean.tar.gz --files-from=/tmp/ilean-list
+          echo "collected $count .ilean files, $(du -h ilean.tar.gz | cut -f1)"
+
+      - name: Publish for this commit
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # A prerelease, so it stays out of this repository's "Latest release".
+          tag="astrolabe-ilean-${GITHUB_SHA}"
+          gh release create "$tag" ilean.tar.gz \
+            --title "Astrolabe graph data — ${GITHUB_SHA:0:7}" \
+            --notes "\`.ilean\` files from \`lake build\` at ${GITHUB_SHA:0:7}, for astrolabe.network." \
+            --prerelease --latest=false \
+          || gh release upload "$tag" ilean.tar.gz --clobber
