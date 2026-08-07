@@ -56,8 +56,14 @@ jobs:
       - name: Download Mathlib cache
         run: lake exe cache get
 
-      - name: Build library
-        run: lake build
+      - name: Build every target
+        # Not a bare `lake build`, which builds `defaultTargets` and so stops
+        # at HessenbergDigraphs. The `.ilean` files only exist for what was
+        # built, while Astrolabe reads a card for every declaration in the
+        # sources — so the unbuilt targets came out with no edges at all and
+        # their declarations looked isolated. Naming them costs one line and
+        # 19 edges were missing without it.
+        run: lake build HessenbergDigraphs HessenbergUtil HessenbergCompute hessenberg-audit hessenberg-compression
 
       - name: Collect .ilean
         working-directory: ${{ github.workspace }}
