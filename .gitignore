@@ -35,6 +35,16 @@ Thumbs.db
 .claude/
 .vscode/
 
+# Obsidian's per-machine state. The rest of .obsidian/ IS committed — the
+# snippets are what makes a card render as a callout rather than a grey box.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# The card pool is not a vault of its own. An `.obsidian/` inside it is the
+# trace of opening that directory in Obsidian by itself; the vault's real
+# configuration is the one at the root.
+HessenbergHypergraph/.obsidian/
+
 # plastex / leanblueprint intermediates (regenerated each build)
 site/blueprint/src/*.paux
 site/blueprint/lean_decls
