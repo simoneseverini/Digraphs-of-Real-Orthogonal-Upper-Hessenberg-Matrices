@@ -2,114 +2,62 @@
 % !TEX root = ../main_hessenberg.tex
 \section{Introduction}\label{sec:intro}
 
-AI tools can now produce substantial Lean developments under human prompt design~\cite{ilin2026semiautonomousvml, avigad2026mathematiciansageai}. This shifts the practical question of how a formalization is built, and with it, the methodological question of what a formalization is actually for. Lean is built on dependent type theory, in which the Curry-Howard correspondence identifies proofs with terms and mathematical statements with types~\cite{deMoura2021Lean4}. In this sense, the formal development of a proof is the proof itself. The major formalization successes of the last five years~\cite{lean_liquid, vandoorn2023sphereeversion, Anderson_Formalization_of_the_2023, becker2025carleson_blueprint, bolan2025equationaltheoriesprojectadvancing, flt_lean} have been carried out alongside reflective accounts of the practice of building such developments~\cite{Avigad2023MathematicsAT, avigad2026mathematiciansageai}.
+AI tools can now produce substantial Lean developments under human prompt
+design~\cite{ilin2026semiautonomousvml, avigad2026mathematiciansageai}. This
+shifts the practical question of how a formalization is built, and with it, the
+methodological question of what a formalization is for. Lean is built on
+dependent type theory, in which the Curry--Howard correspondence identifies
+proofs with terms and mathematical statements with
+types~\cite{deMoura2021Lean4}; in this sense, the formal development of a proof
+is the proof itself. The major formalization successes of the last five
+years~\cite{lean_liquid, vandoorn2023sphereeversion,
+Anderson_Formalization_of_the_2023, becker2025carleson_blueprint,
+bolan2025equationaltheoriesprojectadvancing, flt_lean} have been carried out
+alongside reflective accounts of the practice of building such
+developments~\cite{Avigad2023MathematicsAT, avigad2026mathematiciansageai}.
 
-%We report a case study that takes the Curry-Howard correspondence as a working methodology, so that the formal Lean development is the primary mathematical artifact, and the prose is its auxiliary rendering. \textcolor{red}{\textbf{New Version:}
-We report a case study that takes the Curry-Howard correspondence as its working premise: the formal Lean development is the mathematics, and the prose only renders it. There is no technical novelty in what we do, as there is now a growing literature that examines the methodological consequences of treating formal developments as designed mathematical artifacts~\cite{commelin2023abstractionboundariesspecdriven, baanen2025growing, vandoorn2020maintaining, avigad2024anatomyformalproof, ilin2026semiautonomousvml}. But Section~\ref{sec:methodology} looks at the practices that naturally follow from this constraint. A network analysis of \texttt{Mathlib}~\cite{li2026networkstructuremathlib} shows its structure is heavily infrastructural (\emph{e.g.}, coercions and typeclasses) rather than strictly mathematical. The practices below apply this library-wide distinction to individual developments. We tag every declaration as mathematical content or \emph{engineering tax}, that is, scaffolding with no mathematical counterpart. We gather this
-overhead into a standalone Foundation layer that the mathematical
-layer reaches only through clean interfaces. We enforce a naming
+We report a case study that takes the Curry--Howard correspondence as its
+working premise: the formal Lean development is the mathematics, and the prose
+only renders it. The premise is not ours; a growing literature examines the
+methodological consequences of treating formal developments as designed
+mathematical artifacts~\cite{commelin2023abstractionboundariesspecdriven,
+baanen2025growing, vandoorn2020maintaining, avigad2024anatomyformalproof,
+ilin2026semiautonomousvml}. Our contribution is to set out the practices that
+follow when the premise is enforced end to end. A network analysis of
+\texttt{Mathlib}~\cite{li2026networkstructuremathlib} shows its structure to be
+heavily infrastructural (\emph{e.g.}, coercions and typeclasses) rather than
+strictly mathematical; the practices below apply this library-wide distinction
+to a single development. We tag every declaration as mathematical content or
+\emph{engineering tax}, that is, scaffolding with no mathematical counterpart.
+We gather this overhead into a standalone Foundation layer that the
+mathematical layer reaches only through clean interfaces. We enforce a naming
 discipline under which every declaration reads aloud as a mathematical
-statement. Under this arrangement the authors write no code, but they
-steer the formalization entirely through prompt design and
-mathematical judgment. The central principle is as follows: 
+statement. Under this arrangement the authors write no code: they steer the
+formalization entirely through prompt design and mathematical judgment. The
+central principle is as follows:
 \begin{center}
-
 \emph{the code must read as mathematics.}
-
 \end{center}
 
-
-%{\color{red}
-%We tag every declaration, separating the engineering tax (that has no mathematical counterpart) from the mathematics itself. For example, XXXXX give the example XXXX
-
-%Then we gather that overhead into a standalone foundation layer that the mathematical layer reaches only through clean interfaces; naming follows a discipline of its own, under which each name reads as a mathematical statement. What the authors actually do under this arrangement we also state plainly, rather than leave vague. Running through all of it is one measure, that the code should read as mathematics and not merely pass the
-%type-checker.
-%}
-
-%AI tools produced every line of the formalization, including all optimization and refactoring work~\cite{ilin2026semiautonomousvml}. The authors' contribution was strictly confined to mathematical judgment exercised through prompt design. For the broader question of how human judgment integrates with AI in mathematical work, see~\cite{klowden2026mathematicalmethodshumanthought}. A complementary direction is semi-autonomous mathematical \emph{discovery}, in which AI systems generate and evaluate conjectures under human supervision~\cite{Feng2026SemiAutonomousMD}. Our project operates in the distinct regime of formalization rather than discovery. This inversion is a deliberate test of how far the methodology can be pushed. We make prompt design the primary object of methodological inquiry, since prompts serve as the sole human channel into the formal artifact.
-
-As a case study, we characterize the digraphs of real-orthogonal upper Hessenberg matrices. A \emph{marshmallow}, in Erd\H{o}s's sense, is a small result that offers a
-moment of intellectual reward but no deep mathematical consequences. (The choice of problem here is driven by the second author's 
-curiosity, returning after twenty-five years to a problem from their 
-doctoral years~\cite{severini2003a}, and by an honest assessment of their  mathematical strength, then and now.) 
-Nothing in the methodology discussed here depends on the problem being a marshmallow. If anything, keeping engineering tax out of the mathematical narrative matters more in a large formalization, since that is where the narrative is easiest to lose.
-
-Below, Section~\ref{sec:methodology} sets out the methodology, and Section~\ref{sec:example} presents the case study, with direct cross-references into the Lean development. %Appendix~\ref{sec:compression} applies a compression metric~\cite{aksenov2026compressionneedmodelingmathematics} to the resulting development as independent evidence that the formal artifact carries genuine mathematical content. 
-The full development is available \href{https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices}{on GitHub}. Every theorem and definition below carries a link into its source.
+As a case study, we characterize the digraphs of real-orthogonal upper
+Hessenberg matrices, a small, self-contained problem that revisits a question
+first considered in~\cite{severini2003a}. Nothing in the practices depends on
+the problem being small; if anything, keeping engineering tax out of the
+mathematical narrative matters more in a large formalization, where the
+narrative is easiest to lose. Section~\ref{sec:methodology} sets out the
+practices, and Section~\ref{sec:example} presents the case study, with direct
+cross-references into the Lean development. The full development is available
+\href{https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices}{on
+GitHub}; every theorem and definition below carries a link into its source.
 
 We have also published the mathematics of Section~\ref{sec:example} on
 \href{https://www.astrolabe.network/writing/hessenberg-digraphs}{\texttt{astrolabe.network}},
-where every statement of that section is cut into a card addressed by a unique
-hash, and the relations between cards are themselves nodes, each carrying the
-semantics of the relation it stands for. The visualization and the network
-analyses it carries follow~\cite{li2026networkstructuremathlib}. The design was
-initially set out in~\cite{li2026astrolabecontentaddressablehypergraphsemantic},
-with many updates since; the submission format and process will follow.
-
-% The full classification theorem and its components are stated in
-% Section~\ref{sec:results} (Theorem~\ref{thm:classification}); the proof
-% sketches there reference the Lean source directly.
-
-\begin{comment}
-\begin{theorem}[Classification]\label{thm:main}
-Fix $n \ge 2$. An unreduced real orthogonal upper Hessenberg matrix
-$Q \in \R^{n \times n}$ factors canonically as a product of $n - 1$ adjacent
-Givens rotations, each determined by a single parameter
-$\alpha_k \in (0, 1]$. The zero--nonzero pattern of $Q$ depends only on which
-parameters satisfy $\alpha_k < 1$; this subset
-$S = \{k \in [n-1] : \alpha_k < 1\}$ completely determines the support
-digraph $D(Q)$. Specifically:
-\begin{enumerate}[label=\textup{(\arabic*)}]
-\item \textup{(Bridge)}
-  $D(Q) = D_n(S)$, a digraph on $[n]$ consisting of the directed Hamilton
-  cycle $1 \to n \to n{-}1 \to \cdots \to 2 \to 1$ together with
-  ``overlay'' arcs determined by~$S$ (Definition~\ref{def:S}).
-\item \textup{(Completeness)}
-  Every subset $S \subseteq [n-1]$ arises from some such matrix.
-\item \textup{(Rigidity)}
-  If $|S| \ge 2$, the digraph $D_n(S)$ uniquely determines~$S$.
-\end{enumerate}
-The number of non-isomorphic connected support digraphs on $n$ vertices is
-$2^{n-1} - \lfloor(n{-}1)/2\rfloor$.
-\end{theorem}
-
-The study of support digraphs of unitary matrices was initiated by the second
-author~\cite{severini2003a}, who showed that every such digraph is
-\emph{strongly quadrangular}---a necessary condition that is far from
-sufficient in general. Gutin, Rafiey, Severini, and
-Yeo~\cite{gutin2006} subsequently established that every
-digraph of a unitary matrix contains a Hamilton cycle; further structural
-constraints were obtained in~\cite{severini2003b,
-lundgren2004}. The complete classification of support digraphs
-of arbitrary unitary matrices remains open. The Hessenberg constraint---natural
-from the viewpoint of QR eigenvalue algorithms~\cite{gragg1986,
-tremain2011}---makes the problem completely tractable: the Givens factorization
-reduces the zero--nonzero pattern to a single subset parameter $S$, and the
-tightly constrained cyclic structure of $D_n(S)$ forces rigidity. This line of
-work is also motivated by the role of support digraphs in discrete quantum
-walks~\cite{braunstein2006, zhan2018}, where the topology of the
-walk is determined by the support of the evolution operator.
-
-All results stated in this paper have been formalized in
-Lean~4~\cite{deMoura2021Lean4} with zero \texttt{sorry}, building on the Mathlib
-library~\cite{The_mathlib_Community_2020}. The development spans two files (approximately
-2\,200 lines, 48 theorems and lemmas) and was carried out semi-autonomously by an AI agent
-system. Following Schmitt's proposals for transparency in AI-assisted
-mathematics~\cite{schmitt2025}, we provide a detailed account of the
-AI--human collaboration in Appendix~\ref{sec:appendix-ai}.
+where every statement is cut into a card addressed by a unique hash, and the
+relations between cards are themselves nodes, each carrying the semantics of
+the relation it stands for. The visualization and the network analyses it
+carries follow~\cite{li2026networkstructuremathlib}; the underlying design was
+set out in~\cite{li2026astrolabecontentaddressablehypergraphsemantic}. Astrolabe
+has since evolved substantially, and this network should be read as a prototype
+instance of an evolving publication format rather than a fixed specification.
 
 
-\medskip
-\noindent\textbf{Outline.}
-Section~\ref{sec:factorization} establishes the canonical Givens factorization
-and derives a closed-form entry formula.
-Section~\ref{sec:connectivity} translates the entry formula into the
-combinatorial digraph model $D_n(S)$ and characterizes connectivity.
-Section~\ref{sec:enumeration} proves rigidity, singleton isomorphisms, and the
-exact enumeration formula.
-Section~\ref{sec:loopless} classifies loopless digraphs via Fibonacci numbers,
-with explicit examples.
-Section~\ref{sec:formalization} describes the Lean~4 formalization.
-Appendix~\ref{sec:appendix-ai} documents the AI--human collaboration, and
-Appendix~\ref{sec:appendix-stats} provides code statistics.
-\end{comment}
