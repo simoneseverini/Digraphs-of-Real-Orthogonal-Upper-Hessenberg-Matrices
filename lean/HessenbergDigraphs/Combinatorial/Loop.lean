@@ -140,11 +140,11 @@ theorem loopless_iff (hn : 3 ≤ n) :
     · intro k hk
       refine ⟨?_, ?_⟩
       · by_contra hkLt
-        push_neg at hkLt
+        push Not at hkLt
         have hk1 : k.value = 1 := by have := k.one_le_value; omega
         exact h _ ((loop_at_first S (by omega)).mpr ⟨k, hk, hk1⟩)
       · by_contra hkGt
-        push_neg at hkGt
+        push Not at hkGt
         have hkEq : k.value = n - 1 := by have := k.value_le_n; omega
         exact h _ ((loop_at_last S (by omega)).mpr ⟨k, hk, hkEq⟩)
     · intro k k' hk hk' hkk'

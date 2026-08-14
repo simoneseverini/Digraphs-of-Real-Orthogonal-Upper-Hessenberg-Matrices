@@ -191,13 +191,13 @@ theorem givensRotation_commute_diagonal_of_eq_on_rotation_pair {m : ℕ}
           diagonal_const_on_rotation_block k d hd j hj_block]
       ring
     · -- j outside block: G i j = if i = j then 1 else 0
-      push_neg at hj_block
+      push Not at hj_block
       rw [givensRotation.apply_of_ne_col (n := m + 1) k θ i j hj_block.1 hj_block.2]
       by_cases hij : i = j
       · subst hij; ring
       · simp [hij]
   · -- i outside block: G i j = if i = j then 1 else 0
-    push_neg at hi_block
+    push Not at hi_block
     rw [givensRotation.apply_of_ne_row (n := m + 1) k θ i j hi_block.1 hi_block.2]
     by_cases hij : i = j
     · subst hij; ring

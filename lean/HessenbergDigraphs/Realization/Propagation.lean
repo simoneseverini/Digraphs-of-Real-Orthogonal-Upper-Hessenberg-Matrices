@@ -280,7 +280,7 @@ theorem givensProduct_upper_ne_zero_of_arc
           rw [partialGivensProduct_apply_of_col_ge θ j.val (by omega) x (by omega) i]
           simp [Fin.ext_iff]; omega
         rw [this, zero_mul]
-      · push_neg at hx1
+      · push Not at hx1
         have hxlt : x.val < j.val := by omega
         have : givensRotation n ⟨j.val, by omega⟩ (θ ⟨j.val, by omega⟩) x j = 0 := by
           unfold givensRotation

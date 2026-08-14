@@ -51,7 +51,7 @@ private lemma sigma_fixes_step_via_spine (hn : 2 ≤ n)
     rw [h_fix_succ] at h_arc_S'
     have h_sigma_k_le_k : (σ k).value ≤ k.value := by
       by_contra hgt
-      push_neg at hgt
+      push Not at hgt
       have hk' := hk_ind (σ k) hgt
       have := σ.injective hk'
       have h_value : (σ k).value = k.value := by rw [this]
@@ -174,7 +174,7 @@ private theorem perm_image_below_cut (hn : 2 ≤ n)
     | succ k ih =>
       intro hk h_le h_pos
       by_contra hge
-      push_neg at hge
+      push Not at hge
       have hk_le_n : k + 1 ≤ n := by omega
       have hk_pos : 1 ≤ k + 1 := by omega
       have hsi_ne_w : σ ⟨k + 1 + 1, h_pos, h_le⟩ ≠ w := by
@@ -354,7 +354,7 @@ theorem rigid (hn : 2 ≤ n)
       have := w.value_le_n
       have hvlast_v : vlast.value = n := rfl
       by_contra h
-      push_neg at h
+      push Not at h
       apply hne_fix
       ext
       have : w.value = n := by omega
@@ -367,10 +367,10 @@ theorem rigid (hn : 2 ≤ n)
     -- w is in S' as an active-column-element
     have hwS' : ∃ k ∈ S'.elements, k.value = w.value := by
       by_contra hno
-      push_neg at hno
+      push Not at hno
       have hnoC : w ∉ S'.activeCols := by
         rw [ActiveSet.mem_activeCols_iff]
-        push_neg
+        push Not
         refine ⟨hno, ?_⟩
         intro h_eq_n
         apply hne_fix
@@ -397,7 +397,7 @@ theorem rigid (hn : 2 ≤ n)
       have := u.value_le_n
       have hvlast_v : vlast.value = n := rfl
       by_contra h
-      push_neg at h
+      push Not at h
       apply hu_ne
       ext
       have : u.value = n := by omega
@@ -408,10 +408,10 @@ theorem rigid (hn : 2 ≤ n)
       exact h_pres.symm
     have huS : ∃ k ∈ S.elements, k.value = u.value := by
       by_contra hno
-      push_neg at hno
+      push Not at hno
       have hnoC : u ∉ S.activeCols := by
         rw [ActiveSet.mem_activeCols_iff]
-        push_neg
+        push Not
         refine ⟨hno, ?_⟩
         intro h_eq_n
         apply hu_ne
@@ -451,7 +451,7 @@ theorem rigid (hn : 2 ≤ n)
     -- no element of S' has value > w.value
     have hno_above : ∀ s ∈ S'.elements, s.value ≤ w.value := by
       intro s hs
-      by_contra hgt; push_neg at hgt
+      by_contra hgt; push Not at hgt
       -- The filter below w plus k_w plus s would be ≥ S.card + 1 = S'.card + 1, contradiction
       have hs_ne_kw : s ≠ k_w := by
         intro heq; rw [heq, hk_wv] at hgt; omega
@@ -483,7 +483,7 @@ theorem rigid (hn : 2 ≤ n)
       omega
     · by_cases hσf_lt_w : (σ vfirst).value < w.value
       · exact perm_image_below_cut S S' hn σ hσ w hw_def hw_lt hσf_lt_w
-      · push_neg at hσf_lt_w
+      · push Not at hσf_lt_w
         exact perm_image_above_cut S S' hn hcard σ hσ w hw_def hw_lt hno_above
           hσf_lt_w hσf_eq_w
   exact fixes_last_implies_id S S' hn σ hσ h_fix

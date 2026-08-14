@@ -539,7 +539,7 @@ theorem card_looplessClasses_quot (hn : 3 ≤ n) (hfib : n - 3 + 1 ≤ Nat.fib (
       = Set.range g := by
     ext z
     simp only [Finset.coe_image, Finset.coe_filter, Finset.mem_univ, true_and,
-      Set.mem_image, Set.mem_setOf_eq, Set.mem_range]
+      Set.mem_image, Set.mem_ofPred_eq, Set.mem_range]
     constructor
     · rintro ⟨S, hS, rfl⟩
       exact ⟨⟦⟨S, hS⟩⟧, rfl⟩

@@ -37,7 +37,7 @@ theorem givensProduct_row_vanishing
     (hR : Vertex.ofFin i ∉ (activeSet θ).activeRows) :
     givensProduct θ i j = 0 := by
   rw [ActiveSet.mem_activeRows_iff] at hR
-  push_neg at hR
+  push Not at hR
   obtain ⟨hine1, hnotactive⟩ := hR
   have hofv : (Vertex.ofFin i).value = i.val + 1 := rfl
   have hpos : 0 < i.val := by
@@ -95,7 +95,7 @@ theorem givensProduct_row_vanishing
       by_cases hxi : x.val ≥ i.val
       · have := ih (by omega) (by omega) x hxi
         rw [this, zero_mul]
-      · push_neg at hxi
+      · push Not at hxi
         have hGid : givensRotation n ⟨m, by omega⟩ (θ ⟨m, by omega⟩) x col = 0 := by
           rw [givensRotation.apply_of_ne_row ⟨m, by omega⟩ _ x col
                 (by simp; omega) (by simp; omega),
@@ -110,7 +110,7 @@ theorem givensProduct_col_vanishing
     (hC : Vertex.ofFin j ∉ (activeSet θ).activeCols) :
     givensProduct θ i j = 0 := by
   rw [ActiveSet.mem_activeCols_iff] at hC
-  push_neg at hC
+  push Not at hC
   obtain ⟨hnotactive, hjne_n⟩ := hC
   have h_value : (Vertex.ofFin j).value = j.val + 1 := rfl
   have hjne : j.val + 1 ≠ n := h_value ▸ hjne_n

@@ -64,7 +64,7 @@ theorem givensProduct_apply_of_break (θ : Fin (n - 1) → ℝ)
     · by_cases hx : x.val ≥ k.val + 1
       · rw [partialGivensProduct_apply_of_col_ge θ m (by omega) x (by omega) i]
         simp [Fin.ext_iff]; omega
-      · push_neg at hx
+      · push Not at hx
         suffices hGzero : givensRotation n ⟨m, by omega⟩ (θ ⟨m, by omega⟩) x col = 0 by
           rw [hGzero, mul_zero]
         by_cases hcolk1 : col.val = k.val + 1
@@ -86,7 +86,7 @@ theorem givensProduct_apply_of_break (θ : Fin (n - 1) → ℝ)
     · have hmge : m ≥ k.val + 1 := by omega
       by_cases hx : x.val ≥ k.val + 1
       · rw [ih (by omega) hmge x hx, zero_mul]
-      · push_neg at hx
+      · push Not at hx
         have hGid : givensRotation n ⟨m, by omega⟩ (θ ⟨m, by omega⟩) x col =
             if x = col then 1 else 0 :=
           givensRotation.apply_of_ne_row ⟨m, by omega⟩ _ x col (by simp; omega) (by simp; omega)
@@ -136,7 +136,7 @@ private theorem last_row_norm (hn : 2 ≤ n)
   have hvan : ∀ j : Fin n, j ∉ supp → Q i j ^ 2 = 0 := by
     intro j hj
     simp only [supp, Finset.mem_insert, Finset.mem_singleton] at hj
-    push_neg at hj
+    push Not at hj
     obtain ⟨hjp, hji⟩ := hj
     have hjval : j.val + 1 < n - 1 := by
       have := j.isLt
@@ -163,7 +163,7 @@ theorem exists_angle_for_last_row (a b : ℝ) (hab : a ^ 2 + b ^ 2 = 1) :
   · refine ⟨Real.arccos b, Real.cos_arccos hb1 hb2, ?_⟩
     rw [Real.sin_arccos, show 1 - b ^ 2 = a ^ 2 from by linarith,
       Real.sqrt_sq_eq_abs, abs_of_nonneg ha]
-  · push_neg at ha
+  · push Not at ha
     refine ⟨-Real.arccos b, ?_, ?_⟩
     · rw [Real.cos_neg, Real.cos_arccos hb1 hb2]
     · rw [Real.sin_neg, Real.sin_arccos, show 1 - b ^ 2 = a ^ 2 from by linarith,
@@ -201,7 +201,7 @@ private theorem mul_givens_last_clears (hn : 2 ≤ n)
   have hsupp : ∀ x : Fin n, x ∉ ({p, i} : Finset (Fin n)) → Q i x * G j x = 0 := by
     intros x hx
     simp only [Finset.mem_insert, Finset.mem_singleton] at hx
-    push_neg at hx
+    push Not at hx
     have hxp : x.val ≠ n - 2 := fun h => hx.1 (Fin.ext (by simp only [p]; exact h))
     have hxi : x.val ≠ n - 1 := fun h => hx.2 (Fin.ext (by simp only [i]; exact h))
     have := x.isLt
@@ -674,7 +674,7 @@ private lemma partialProduct_eq_diagonals_mul_M {k' : ℕ}
         rfl
       rw [hM'']
     · -- Case B: i.val < k'+1, j.val = k'+1.
-      push_neg at hj_lt
+      push Not at hj_lt
       have hj_eq : j = ⟨k' + 1, by omega⟩ := by
         ext; change j.val = k' + 1; have := j.isLt; omega
       rw [hj_eq]
@@ -686,7 +686,7 @@ private lemma partialProduct_eq_diagonals_mul_M {k' : ℕ}
         have : i.val = k' + 1 := by rw [h]
         omega)]
       ring
-  · push_neg at hi_lt
+  · push Not at hi_lt
     have hi_eq : i = ⟨k' + 1, by omega⟩ := by
       ext; change i.val = k' + 1; have := i.isLt; omega
     by_cases hj_lt : j.val < k' + 1
@@ -701,7 +701,7 @@ private lemma partialProduct_eq_diagonals_mul_M {k' : ℕ}
         omega)]
       ring
     · -- Case D: i = j = ⟨k'+1⟩.
-      push_neg at hj_lt
+      push Not at hj_lt
       have hj_eq : j = ⟨k' + 1, by omega⟩ := by
         ext; change j.val = k' + 1; have := j.isLt; omega
       rw [hi_eq, hj_eq, hM'_corner_one]

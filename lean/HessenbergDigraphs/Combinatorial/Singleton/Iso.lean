@@ -127,14 +127,14 @@ theorem inDeg_eq_two_iff_singleton (n t : ℕ) (hn : 2 ≤ n) (ht : 1 ≤ t) (ht
       rw [h_v_eq, inDeg_last (singletonAs n t ht htn) hn]
       simp [singletonAs]
   · -- v not active-cols: inDeg = 1, so cannot equal 2
-    push_neg at hj
+    push Not at hj
     have hv_lt : v.value < n := by
       rcases lt_or_eq_of_le v.value_le_n with hlt | heq
       · exact hlt
       · exact absurd heq hj.2
     have hv_notC : v ∉ (singletonAs n t ht htn).activeCols := by
       rw [mem_activeCols_singleton]
-      push_neg; exact hj
+      push Not; exact hj
     have h_inDeg :=
       inDeg_eq_one_of_not_mem_activeCols (singletonAs n t ht htn) v hv_lt hv_notC
     rw [h_inDeg]

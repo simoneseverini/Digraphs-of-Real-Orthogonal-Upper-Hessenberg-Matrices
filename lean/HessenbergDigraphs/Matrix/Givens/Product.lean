@@ -174,7 +174,7 @@ private lemma partialGivensProduct_apply_corner_eq_givensProduct :
         rw [partialGivensProduct_apply_of_row_ge
             (n := p + 2) θM p (by omega) ⟨a, ha⟩ ⟨b, hb⟩ hap]
         simp [Fin.ext_iff]
-      · push_neg at hap
+      · push Not at hap
         by_cases hbp : b ≥ p + 1
         · rw [hAₙ_eq, hAₘ_eq]
           rw [partialGivensProduct_apply_of_col_ge
@@ -182,7 +182,7 @@ private lemma partialGivensProduct_apply_corner_eq_givensProduct :
           rw [partialGivensProduct_apply_of_col_ge
               (n := p + 2) θM p (by omega) ⟨b, hb⟩ hbp ⟨a, ha⟩]
           simp [Fin.ext_iff]
-        · push_neg at hbp
+        · push Not at hbp
           have ihN := ih (fun t : Fin p => θ ⟨t.val, by have := t.isLt; omega⟩) N
             (by omega) ⟨a, by omega⟩ ⟨b, by omega⟩
           have ihM := ih (fun t : Fin p => θ ⟨t.val, by have := t.isLt; omega⟩) (p + 2)

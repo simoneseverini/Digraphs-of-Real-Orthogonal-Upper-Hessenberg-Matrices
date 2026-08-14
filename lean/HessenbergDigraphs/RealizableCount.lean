@@ -59,7 +59,7 @@ content of `classification`. -/
 theorem realizableSupports_eq_range (hn : 2 ≤ n) :
     realizableSupports n = Set.range (fun S : ActiveSet n => S.digraph) := by
   ext D
-  simp only [realizableSupports, Set.mem_setOf_eq, Set.mem_range]
+  simp only [realizableSupports, Set.mem_ofPred_eq, Set.mem_range]
   constructor
   · rintro ⟨θ, rfl⟩
     exact ⟨θ.activeSet, (digraph_model hn θ).symm⟩
@@ -111,7 +111,7 @@ together with the universality theorem. -/
 theorem matrixRealizableSupports_eq_range (hn : 2 ≤ n) :
     matrixRealizableSupports n = Set.range (fun S : ActiveSet n => S.digraph) := by
   ext D
-  simp only [matrixRealizableSupports, Set.mem_setOf_eq, Set.mem_range]
+  simp only [matrixRealizableSupports, Set.mem_ofPred_eq, Set.mem_range]
   constructor
   · rintro ⟨Q, hu, rfl⟩
     obtain ⟨θ, hsign⟩ := OrthogonalHessenberg.exists_givensFactorization hn Q hu
