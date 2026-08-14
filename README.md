@@ -1,8 +1,12 @@
 <h1 align="center">Hessenberg Digraphs</h1>
 
 <p align="center">
-  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs"><img alt="Network on astrolabe.network" src="https://img.shields.io/badge/Network-astrolabe.network-8fbcd8?style=flat"></a>
-  <a href="https://digraph-kohl.vercel.app/"><img alt="Website" src="https://img.shields.io/badge/Website-digraph--kohl.vercel.app-2da44e?style=flat"></a>
+  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs"><img alt="Network on astrolabe.network" src="https://img.shields.io/badge/Network-astrolabe.network-1f6feb?style=for-the-badge"></a>
+  <a href="https://digraph-kohl.vercel.app/"><img alt="Website" src="https://img.shields.io/badge/Website-digraph--kohl.vercel.app-2da44e?style=for-the-badge"></a>
+  <a href="https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices/blob/main/paper/main_hessenberg.pdf"><img alt="Paper (PDF)" src="https://img.shields.io/badge/Paper-PDF-b31b1b?style=for-the-badge"></a>
+</p>
+
+<p align="center">
   <img alt="Lean 4.28.0" src="https://img.shields.io/badge/Lean-4.28.0-blue?style=flat">
 </p>
 
@@ -11,13 +15,6 @@
   orthogonal upper Hessenberg matrices — with a <b>verified interactive
   calculator</b> for D<sub>n</sub>(S), a paper website (Verso), a blueprint
   dependency graph, and an API reference.
-</p>
-
-<p align="center">
-  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs">Network</a> &nbsp;·&nbsp;
-  <a href="https://digraph-kohl.vercel.app/">Website</a> &nbsp;·&nbsp;
-  <a href="https://digraph-kohl.vercel.app/verso/_site/html-multi/">Paper</a> &nbsp;·&nbsp;
-  <a href="https://digraph-kohl.vercel.app/blueprint/web/">Blueprint</a>
 </p>
 
 <p align="center">
