@@ -604,7 +604,7 @@ private lemma partialProduct_eq_diagonals_mul_M {k' : ℕ}
   have hM'_lastcol : ∀ i : Fin (k' + 1 + 1),
       M' i ⟨k' + 1, by omega⟩ = if i = ⟨k' + 1, by omega⟩ then 1 else 0 :=
     last_col_eq_e_n_of_orthogonal (by omega) M' hM'_ortho
-      (fun j => by have := hM'_lastrow j; convert this using 2)
+      (fun j => by have := hM'_lastrow j; convert this using 2 <;> rfl)
   ext i j
   rw [show (Matrix.diagonal d_L_full * M' * Matrix.diagonal d_R_full) i j
         = d_L_full i * M' i j * d_R_full j from by

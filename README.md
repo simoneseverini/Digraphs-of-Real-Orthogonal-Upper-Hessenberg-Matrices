@@ -1,13 +1,10 @@
 <h1 align="center">Hessenberg Digraphs</h1>
 
 <p align="center">
-  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs"><img alt="Network on astrolabe.network" src="https://img.shields.io/badge/Network-astrolabe.network-1f6feb?style=for-the-badge"></a>
-  <a href="https://digraph-kohl.vercel.app/"><img alt="Website" src="https://img.shields.io/badge/Website-digraph--kohl.vercel.app-2da44e?style=for-the-badge"></a>
+  <a href="https://www.astrolabe.network/writing/hessenberg-digraphs"><img alt="Network on Astrolabe" src="https://img.shields.io/badge/Network-Astrolabe-1f6feb?style=for-the-badge"></a>
+  <a href="https://digraph-kohl.vercel.app/"><img alt="Website (Verso)" src="https://img.shields.io/badge/Website-Verso-2da44e?style=for-the-badge"></a>
   <a href="https://github.com/simoneseverini/Digraphs-of-Real-Orthogonal-Upper-Hessenberg-Matrices/blob/main/paper/main_hessenberg.pdf"><img alt="Paper (PDF)" src="https://img.shields.io/badge/Paper-PDF-b31b1b?style=for-the-badge"></a>
-</p>
-
-<p align="center">
-  <img alt="Lean 4.28.0" src="https://img.shields.io/badge/Lean-4.28.0-blue?style=flat">
+  <img alt="Lean 4.33.0" src="https://img.shields.io/badge/Lean-4.33.0-8b5cf6?style=for-the-badge">
 </p>
 
 <p align="center">
@@ -165,7 +162,7 @@ lake build                  # compile the library
 lake exe hessenberg-audit   # axiom + public-API health check
 ```
 
-Requires Lean 4 v4.28.0 and Mathlib v4.28.0 (resolved by Lake).
+Requires Lean 4 v4.33.0 and Mathlib v4.33.0 (resolved by Lake).
 
 To try the calculator, open `lean/Playground.lean` in an editor with the
 Lean 4 extension and place the cursor on a `#hessenberg` command.

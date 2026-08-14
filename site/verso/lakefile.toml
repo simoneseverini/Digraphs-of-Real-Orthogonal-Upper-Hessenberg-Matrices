@@ -4,7 +4,7 @@ defaultTargets = ["Paper", "generate-paper"]
 [[require]]
 name = "verso"
 git = "https://github.com/leanprover/verso"
-rev = "v4.28.0"
+rev = "v4.33.0"
 
 [[require]]
 name = "HessenbergDigraphs"

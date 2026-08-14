@@ -186,8 +186,8 @@ stats_data = [
     ["Remaining sorry", "1 (rigid, Theorem 10)"],
     ["Proof coverage", "95.7%"],
     ["Lines of Lean code", "887"],
-    ["Lean version", "v4.28.0"],
-    ["Mathlib version", "v4.28.0"],
+    ["Lean version", "v4.33.0"],
+    ["Mathlib version", "v4.33.0"],
     ["Development rounds", "2 (Aristotle AI-assisted)"],
 ]
 t2 = Table(stats_data, colWidths=[2.2*inch, 3.4*inch])
