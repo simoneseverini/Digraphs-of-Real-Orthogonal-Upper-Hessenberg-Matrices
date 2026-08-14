@@ -1,6 +1,6 @@
 /-
 Copyright (c) 2026 Simone Severini. All rights reserved.
-Released under Apache 2.0 license as described in the file lean/LICENSE.
+Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Simone Severini
 -/
 import Util.Linter.MathTag

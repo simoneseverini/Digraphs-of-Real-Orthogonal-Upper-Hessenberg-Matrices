@@ -1,6 +1,6 @@
 /-
 Copyright (c) 2026 Xinze Li, Simone Severini. All rights reserved.
-Released under Apache 2.0 license as described in the file lean/LICENSE.
+Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Xinze Li, Simone Severini
 -/
 import HessenbergDigraphs.Render
